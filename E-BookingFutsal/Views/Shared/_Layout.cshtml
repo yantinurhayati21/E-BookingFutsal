@@ -1,0 +1,316 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic Page Needs -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-Booking Futsal Application</title>
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+    <!-- libs CSS -->
+    <link rel="stylesheet" href="~/home/libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/home/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/nivo-slider.css">
+    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/animate.css">
+    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/style.css">
+    <link rel="stylesheet" href="~/home/libs/font-material/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="~/home/libs/slider-range/css/jslider.css">
+    <link rel="stylesheet" href="~/home/libs/owl-carousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/home/libs/slick-slider/css/slick.css">
+    <link rel="stylesheet" href="~/home/libs/slick-slider/css/slick-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="~/home/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/home/css/reponsive.css">
+
+    <style>
+        #tiva-slideshow {
+            margin-top: 110px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #f8f9fa;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-brand {
+            margin-right: 0px; /* Menambahkan jarak ke kanan antara logo dan teks */
+        }
+
+        /* Styling Navigasi Menu */
+        .navbar-nav .nav-link {
+            color: #333; /* Warna teks menu */
+            font-weight: bold; /* Tebal huruf */
+            transition: color 0.3s ease; /* Animasi perubahan warna teks */
+            margin-right: 15px; /* Menambahkan jarak ke kanan antara nav items */
+            font-size:15px;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #111; /* Warna teks saat dihover */
+            }
+
+            .navbar-nav .nav-link.active {
+                color: #111; /* Warna teks menu aktif */
+            }
+
+            /* Garis bawah untuk menu aktif */
+            .navbar-nav .nav-link::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 2px;
+                background: #111; /* Warna garis bawah */
+                transition: width 0.3s ease; /* Animasi lebar garis bawah */
+            }
+
+            .navbar-nav .nav-link:hover::after, .navbar-nav .nav-link.active::after {
+                width: 100%; /* Lebar garis bawah saat dihover atau aktif */
+            }
+
+            /* Menyembunyikan garis bawah saat menu tidak dihover */
+            .navbar-nav .nav-link:not(:hover)::after {
+                width: 0;
+            }
+
+        .welcome-menu{
+            margin-top:110px;
+            height: 130px;
+        }
+        .welcome-menu h1 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .welcome-menu h4{
+                margin-bottom: 20px;
+        }
+
+        .text-center {
+            padding-top: 40px
+        }
+
+        .effect {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+            .effect:hover img {
+                transform: scale(1.1); /* Perbesar gambar saat di hover */
+            }
+
+            .effect::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 2;
+            }
+
+            .effect:hover::before {
+                opacity: 1; /* Tampilkan lapisan transparan saat di hover */
+            }
+
+            .effect a {
+                display: block;
+                position: relative;
+                z-index: 3;
+            }
+
+                .effect a:hover {
+                    text-decoration: none;
+                }
+
+        section{
+            padding-top: 20px;
+        }
+
+        .contact-about h3,
+        .contact-contact h3 {
+            color: #333; /* Mengubah warna judul */
+            margin-bottom: 20px; /* Menambahkan margin ke bawah pada judul */
+        }
+
+        .contact-about p {
+            font-size: 16px; /* Mengubah ukuran teks */
+        }
+
+        .log {
+            margin-bottom: 15px; /* Menambahkan margin ke bawah pada log */
+        }
+
+            .log p {
+                margin-bottom: 0; /* Menghapus margin bawah pada teks di dalam log */
+            }
+
+        .icons a {
+            margin-right: 10px; /* Menambahkan margin kanan pada ikon media sosial */
+            color: #333; /* Mengubah warna ikon media sosial */
+        }
+
+        footer {
+            margin-bottom: 0; /* Menghapus margin bawah pada teks di dalam footer */
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body id="home3">
+    <header>
+        <!-- Navigation Menu -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:#1e1e2a;">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="~/home/img/logo-futsal.png" alt="Logo" style="height: 60px; margin-right: 10px;">
+                    <h3 style="font-weight:bold; margin-bottom: 0;">E-BookingFutsal</h3>
+                </a>
+                <!-- Toggle Button for Mobile -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#events">Event</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#booking">Booking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact Person</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="search_widget" class="d-flex align-items-center justify-content-end">
+                    <div id="block_myaccount_infos">
+                        <div class="myaccount-title hidden-sm-down dropdown d-flex align-items-center justify-content-center">
+                            <a href="#acount" data-toggle="collapse" class="acount">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div id="acount" class="collapse">
+                            <div class="account-list-content">
+                                <div>
+                                    <a class="login" asp-controller="Account" asp-action="Login" rel="nofollow" title="Log in to your customer account">
+                                        <i class="fa fa-sign-in"></i>
+                                        <span>LogIn Account</span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a class="registerAdmin" asp-controller="Account" asp-action="RegisterAdmin" rel="nofollow" title="Register Admin">
+                                        <i class="fa fa-user"></i>
+                                        <span>Register Admin</span>
+                                    </a>
+                                </div>
+                                <div>
+                                    <a class="registerMember" asp-controller="Account" asp-action="RegisterMember" rel="nofollow" title="Register Member">
+                                        <i class="fa fa-address-card"></i>
+                                        <span>Register Member</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Additional Greeting Menu -->
+
+    <!-- main content -->
+    @RenderBody()
+    <section class="contact bg-light text-dark" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-about">
+                        <h3>About Us</h3>
+                        <p>We are the easiest way to find playing spaces around you. Find venues, invite players, challenge teams, participate in a list of events and find playing spaces around you.</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-contact">
+                        <h3>Contact Us</h3>
+                        <div class="log">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            <p>yantinurhayati051@gmail.com</p>
+                        </div>
+                        <div class="log">
+                            <i class="fa-solid fa-phone"></i>
+                            <p>0853-2184-0790</p>
+                        </div>
+                        <div class="icons">
+                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="bg-light text-dark py-4">
+        <div class="container text-center">
+            <p>Created By Yanti Nurhayati <i class="fa-solid fa-heart"></i></p>
+        </div>
+    </footer>
+
+    <!-- back top top -->
+    <div class="back-to-top">
+        <a href="#">
+            <i class="fa fa-long-arrow-up"></i>
+        </a>
+    </div>
+    <!-- Page Loader -->
+    <div id="page-preloader">
+        <div class="page-loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <!-- Vendor JS -->
+    <script src="~/home/libs/jquery/jquery.min.js"></script>
+    <script src="~/home/libs/popper/popper.min.js"></script>
+    <script src="~/home/libs/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/home/libs/nivo-slider/js/jquery.nivo.slider.js"></script>
+    <script src="~/home/libs/owl-carousel/owl.carousel.min.js"></script>
+    <script src="~/home/libs/slider-range/js/tmpl.js"></script>
+    <script src="~/home/libs/slider-range/js/jquery.dependClass-0.1.js"></script>
+    <script src="~/home/libs/slider-range/js/draggable-0.1.js"></script>
+    <script src="~/home/libs/slider-range/js/jquery.slider.js"></script>
+    <script src="~/home/libs/slick-slider/js/slick.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Template JS -->
+    <script src="~/home/js/theme.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

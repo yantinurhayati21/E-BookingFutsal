@@ -1,0 +1,44 @@
+﻿@model E_BookingFutsal.Models.LapanganForm
+
+@{
+    ViewData["Title"] = "Create - Lapangan";
+}
+
+<div class="card" style="max-width: 900px; margin: auto;">
+    <div class="card-header bg-primary text-white text-center" style="padding: 20px">
+        <h3 class="mb-0">Add Lapangan</h3>
+    </div>
+    <div class="card-body">
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form method="post" enctype="multipart/form-data" action="/Lapangan/Create">
+            <div class="mb-3 row">
+                <label asp-for="NamaLapangan" class="col-sm-4 col-form-label font-weight-bold fs-5">Nama Lapangan</label>
+                <div class="col-sm-8">
+                    <input asp-for="NamaLapangan" type="text" class="form-control fs-5" placeholder="Input Nama Lapangan" />
+                    <span asp-validation-for="NamaLapangan" class="text-danger"></span>
+                </div>
+            </div>
+
+            <label>Foto Lapangan</label>
+            <input type="file" name="foto" class="form-control" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary form-control">Register</button>
+                </div>
+                <div class="col-md-6 mt-2 mt-md-0">
+                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary form-control">
+                        Show list of users
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

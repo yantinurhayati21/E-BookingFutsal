@@ -1,0 +1,81 @@
+﻿@model E_BookingFutsal.Models.Admin
+
+@{
+    ViewData["Title"] = "Form - Register";
+}
+
+<div class="card" style="max-width: 900px; margin: auto;">
+    <div class="card-header bg-primary text-white text-center" style="padding: 20px">
+        <h3 class="mb-0">Form Register</h3>
+    </div>
+    <div class="card-body">
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form method="post" enctype="multipart/form-data" action="/Account/RegisterAdmin">
+            <div class="mb-3 row">
+                <label asp-for="Nama" class="col-sm-4 col-form-label font-weight-bold fs-5">Full Name</label>
+                <div class="col-sm-8">
+                    <input asp-for="Nama" type="text" class="form-control fs-5" placeholder="Enter your full name" />
+                    <span asp-validation-for="Nama" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label asp-for="Username" class="col-sm-4 col-form-label font-weight-bold fs-5">Username</label>
+                <div class="col-sm-8">
+                    <input asp-for="Username" type="text" class="form-control fs-5" placeholder="Choose a username" />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label asp-for="Email" class="col-sm-4 col-form-label font-weight-bold fs-5">Email Address</label>
+                <div class="col-sm-8">
+                    <input asp-for="Email" type="text" class="form-control fs-5" placeholder="Enter your email address" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label asp-for="Password" class="col-sm-4 col-form-label font-weight-bold fs-5">Password</label>
+                <div class="col-sm-8">
+                    <input asp-for="Password" type="password" class="form-control fs-5" placeholder="Choose a password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label asp-for="Alamat" class="col-sm-4 col-form-label font-weight-bold fs-5">Address</label>
+                <div class="col-sm-8">
+                    <input asp-for="Alamat" type="text" class="form-control fs-5" placeholder="Enter your address" />
+                    <span asp-validation-for="Alamat" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label asp-for="NoHp" class="col-sm-4 col-form-label font-weight-bold fs-5">Phone Number</label>
+                <div class="col-sm-8">
+                    <input asp-for="NoHp" type="text" class="form-control fs-5" placeholder="Enter your phone number" />
+                    <span asp-validation-for="NoHp" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-primary form-control">Register</button>
+                </div>
+                <div class="col-md-6 mt-2 mt-md-0">
+                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary form-control">
+                        Show list of users
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
