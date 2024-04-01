@@ -182,11 +182,11 @@ namespace E_BookingFutsal.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAdmin(Admin data)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return View(data);
             }
-
+*/
             // Validasi unik username
             if (_context.Admins.Any(u => u.Username == data.Username))
             {

@@ -75,9 +75,6 @@ namespace E_BookingFutsal.Migrations
                     b.Property<int>("Durasi")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("LapanganIdLapangan")
                         .HasColumnType("int");
 
@@ -90,9 +87,6 @@ namespace E_BookingFutsal.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("varchar(13)");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<int>("StatusIdStatus")
                         .HasColumnType("int");
 
@@ -102,8 +96,11 @@ namespace E_BookingFutsal.Migrations
                     b.Property<DateTime>("TglBooking")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("TotalHarga")
-                        .HasColumnType("decimal(65,30)");
+                    b.Property<int>("TotalHarga")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("WaktuBooking")
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("IdBooking");
 
@@ -167,6 +164,9 @@ namespace E_BookingFutsal.Migrations
                         .HasColumnType("int");
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("IdLapangan"));
+
+                    b.Property<int>("HargaSewaPerJam")
+                        .HasColumnType("int");
 
                     b.Property<string>("NamaLapangan")
                         .IsRequired()

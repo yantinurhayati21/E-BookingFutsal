@@ -1,17 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace E_BookingFutsal.Models
+namespace E_BookingFutsal.Models.ViewModel
 {
-    public class Booking
+    public class BookingForm
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IdBooking { get; set; }
-
         [Required(ErrorMessage = "Nama wajib diisi")]
         public string Nama { get; set; }
-        public Member StatusMember { get; set; }
+        public int StatusMember { get; set; }
 
         [Required(ErrorMessage = "Nomor telepon wajib diisi")]
         [Phone(ErrorMessage = "Nomor telepon tidak valid")]
@@ -19,7 +14,7 @@ namespace E_BookingFutsal.Models
         public string NoHp { get; set; }
 
         [Required(ErrorMessage = "Nama lapangan wajib diisi")]
-        public Lapangan Lapangan { get; set; }
+        public int Lapangan { get; set; }
 
         [Required(ErrorMessage = "Tanggal booking wajib diisi")]
         [DataType(DataType.Date)]
@@ -33,7 +28,7 @@ namespace E_BookingFutsal.Models
         public int Durasi { get; set; }
 
         [Required(ErrorMessage = "Status booking wajib diisi")]
-        public Status Status { get; set; }
+        public int Status { get; set; } 
 
         [Required(ErrorMessage = "Total harga wajib diisi")]
         public int TotalHarga { get; set; }

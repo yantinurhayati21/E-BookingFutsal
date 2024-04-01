@@ -24,7 +24,7 @@ namespace E_BookingFutsal.Controllers
 
         }
 
-        public IActionResult Privacy()
+        public IActionResult IndexAdmin()
         {
             return View();
         }

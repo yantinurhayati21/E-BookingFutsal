@@ -1,5 +1,56 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Lapangan
 @{
+    ViewData["Title"] = "Details for " + @Model.NamaLapangan;
+    Layout = "_LayoutAdmin";
 }
+
+<div class="header--wrapper">
+    <div class="header--title">
+        <span>Primary</span>
+        <h2>Dashboard</h2>
+    </div>
+    <div class="user--info">
+        <img src="~/image/img.jpeg" alt="User Image">
+    </div>
+</div>
+
+<div class="container mt-4">
+    <h4 class="text-center mb-4">Details for @Model.NamaLapangan</h4>
+    <hr />
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="mb-3">
+                        <label asp-for="NamaLapangan" class="col-form-label fw-bold fs-5">Nama Lapangan:</label>
+                        <input asp-for="NamaLapangan" type="text" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="mb-3">
+                        <label class="col-form-label fw-bold fs-5">Foto:</label>
+                        <div>
+                            @if (!string.IsNullOrEmpty(Model.Photo))
+                            {
+                                <img src="~/lapangan/@Model.Photo" class="img-fluid" alt="Lapangan Photo" />
+                            }
+                            else
+                            {
+                                <span>No Photo Available</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-6 col-md-3">
+            <a asp-controller="Lapangan" asp-action="Index" class="btn btn-dark form-control">
+                Back to List
+            </a>
+        </div>
+    </div>
+</div>

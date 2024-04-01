@@ -1,0 +1,71 @@
+﻿@model E_BookingFutsal.Models.ViewModel.BookingForm
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create Booking</h1>
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Nama" class="control-label"></label>
+        <input asp-for="Nama" class="form-control" />
+        <span asp-validation-for="Nama" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="StatusMember" class="control-label"></label>
+        <select asp-for="StatusMember" class="form-control" asp-items="ViewBag.Members"></select>
+        <span asp-validation-for="StatusMember" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NoHp" class="control-label"></label>
+        <input asp-for="NoHp" class="form-control" />
+        <span asp-validation-for="NoHp" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Lapangan" class="control-label"></label>
+        <select asp-for="Lapangan" class="form-control" asp-items="ViewBag.Lapangan"></select>
+        <span asp-validation-for="Lapangan" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TglBooking" class="control-label"></label>
+        <input asp-for="TglBooking" class="form-control" />
+        <span asp-validation-for="TglBooking" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="WaktuBooking" class="control-label"></label>
+        <input asp-for="WaktuBooking" class="form-control" />
+        <span asp-validation-for="WaktuBooking" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Durasi" class="control-label"></label>
+        <input asp-for="Durasi" class="form-control" />
+        <span asp-validation-for="Durasi" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TotalHarga" class="control-label"></label>
+        <input asp-for="TotalHarga" class="form-control" />
+        <span asp-validation-for="TotalHarga" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses"></select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

@@ -53,6 +53,7 @@ namespace E_BookingFutsal.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     NamaLapangan = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    HargaSewaPerJam = table.Column<int>(type: "int", nullable: false),
                     Photo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -152,11 +153,10 @@ namespace E_BookingFutsal.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LapanganIdLapangan = table.Column<int>(type: "int", nullable: false),
                     TglBooking = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    WaktuBooking = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Durasi = table.Column<int>(type: "int", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     StatusIdStatus = table.Column<int>(type: "int", nullable: false),
-                    TotalHarga = table.Column<decimal>(type: "decimal(65,30)", nullable: false)
+                    TotalHarga = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

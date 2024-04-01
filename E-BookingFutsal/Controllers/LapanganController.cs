@@ -63,15 +63,15 @@ namespace E_BookingFutsal.Controllers
                         Directory.CreateDirectory(fileFolder);
                     }
 
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + foto.FileName;
-                    var fullFilePath = Path.Combine(fileFolder, uniqueFileName);
+                    var fileName = "photo_" + data.NamaLapangan + Path.GetExtension(foto.FileName);
+                    var fullFilePath = Path.Combine(fileFolder, fileName);
 
                     using (var stream = new FileStream(fullFilePath, FileMode.Create))
                     {
                         await foto.CopyToAsync(stream);
                     }
 
-                    lapangan.Photo = foto.FileName;
+                    lapangan.Photo =fileName;
                 }
             }
 
@@ -97,50 +97,56 @@ namespace E_BookingFutsal.Controllers
             return View(lapangan);
         }
 
+        // Method Update dalam LapanganController
         [HttpPost]
-        public async Task<IActionResult> Update([FromForm] Lapangan data)
+        public async Task<IActionResult> Update([FromForm] Lapangan data, IFormFile foto)
         {
-            var dataFromDb = _context.Lapang.FirstOrDefault(x => x.IdLapangan == data.IdLapangan);
+            var dataFromDb = await _context.Lapang.FirstOrDefaultAsync(x => x.IdLapangan == data.IdLapangan);
 
             if (dataFromDb != null)
             {
                 dataFromDb.NamaLapangan = data.NamaLapangan;
-                dataFromDb.Photo = data.Photo;
 
+                if (foto != null)
+                {
+                    if (foto.Length > 0)
+                    {
+                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+                        var fileExt = Path.GetExtension(foto.FileName).ToLower();
+                        if (!allowedExtensions.Contains(fileExt))
+                        {
+                            ModelState.AddModelError("Foto", "File type is not allowed. Please upload a JPG or PNG file.");
+                            return View(data);
+                        }
+
+                        var fileFolder = Path.Combine(_env.WebRootPath, "lapangan");
+
+                        if (!Directory.Exists(fileFolder))
+                        {
+                            Directory.CreateDirectory(fileFolder);
+                        }
+
+                        var fileName = "photo_" + data.NamaLapangan + Path.GetExtension(foto.FileName);
+                        var fullFilePath = Path.Combine(fileFolder, fileName);
+
+                        using (var stream = new FileStream(fullFilePath, FileMode.Create))
+                        {
+                            await foto.CopyToAsync(stream);
+                        }
+
+                        dataFromDb.Photo = fileName;
+                    }
+                }
+
+                // Konfirmasi perubahan ke dalam konteks basis data
                 _context.Lapang.Update(dataFromDb);
                 await _context.SaveChangesAsync();
-                TempData["success"] = "user updated successfully";
+                TempData["success"] = "Lapangan berhasil diperbarui.";
             }
-            return RedirectToAction("Show");
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id)
-        {
-            var lapangan = _context.Lapang.FirstOrDefault(u => u.IdLapangan == id);
 
-            if (lapangan == null)
-            {
-                return NotFound();
-            }
-            return View(lapangan);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var lapangan = await _context.Lapang.FindAsync(id);
-
-            if (lapangan == null)
-            {
-                return NotFound();
-            }
-
-            _context.Lapang.Remove(lapangan);
-            await _context.SaveChangesAsync();
-            TempData["success"] = "user deleted successfully";
-            return RedirectToAction("Show");
-        }
 
         public async Task<IActionResult> DownloadFoto(int id)
         {
