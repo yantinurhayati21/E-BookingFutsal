@@ -75,6 +75,10 @@ namespace E_BookingFutsal.Migrations
                     b.Property<int>("Durasi")
                         .HasColumnType("int");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("LapanganIdLapangan")
                         .HasColumnType("int");
 

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_BookingFutsal.Migrations
 {
     /// <inheritdoc />
-    public partial class bismillah : Migration
+    public partial class lahaula : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -150,6 +150,8 @@ namespace E_BookingFutsal.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     StatusMemberId = table.Column<int>(type: "int", nullable: false),
                     NoHp = table.Column<string>(type: "varchar(13)", maxLength: 13, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LapanganIdLapangan = table.Column<int>(type: "int", nullable: false),
                     TglBooking = table.Column<DateTime>(type: "datetime(6)", nullable: false),

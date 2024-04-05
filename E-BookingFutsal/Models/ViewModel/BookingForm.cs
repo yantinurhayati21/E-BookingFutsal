@@ -12,6 +12,7 @@ namespace E_BookingFutsal.Models.ViewModel
         [Phone(ErrorMessage = "Nomor telepon tidak valid")]
         [StringLength(13, MinimumLength = 11, ErrorMessage = "NO Handphone Min 11 Angka")]
         public string NoHp { get; set; }
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Nama lapangan wajib diisi")]
         public int Lapangan { get; set; }

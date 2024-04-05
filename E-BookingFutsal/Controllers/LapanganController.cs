@@ -42,6 +42,7 @@ namespace E_BookingFutsal.Controllers
             var lapangan = new Lapangan()
             {
                 NamaLapangan = data.NamaLapangan,
+                HargaSewaPerJam = data.HargaSewaPerJam
             };
 
             if (foto != null)
@@ -106,6 +107,7 @@ namespace E_BookingFutsal.Controllers
             if (dataFromDb != null)
             {
                 dataFromDb.NamaLapangan = data.NamaLapangan;
+                dataFromDb.HargaSewaPerJam = data.HargaSewaPerJam;
 
                 if (foto != null)
                 {
@@ -145,8 +147,6 @@ namespace E_BookingFutsal.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
 
         public async Task<IActionResult> DownloadFoto(int id)
         {

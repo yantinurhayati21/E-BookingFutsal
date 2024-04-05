@@ -19,84 +19,91 @@ namespace E_BookingFutsal.Controllers
         }
         public IActionResult Index()
         {
-            List<Booking> booking = _context.Bookings.ToList();
-            return View();
+            var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).ToList();
+            return View(bookings);
         }
 
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewBag.Members = _context.Members.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.StatusMember
-            }).ToList();
-
-            ViewBag.Lapangan = _context.Lapang.Select(x => new SelectListItem
-            {
-                Value = x.IdLapangan.ToString(),
-                Text = x.NamaLapangan
-            }).ToList();
-
-            ViewBag.Statuses = _context.Statuses.Select(x => new SelectListItem
-            {
-                Value = x.IdStatus.ToString(),
-                Text = x.NamaStatus
-            }).ToList();
-
-            return View();
+            var getIdLapangan = _context.Lapang.Where(l => l.IdLapangan == id).FirstOrDefault();
+            return View(getIdLapangan);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] BookingForm bookingForm)
+        public async Task<IActionResult> Create([FromForm] BookingForm data, int idLapangan, string Nama)
         {
-            var AddMember = await _context.Members.FirstOrDefaultAsync(x => x.Id == bookingForm.StatusMember);
-            var AddLapangan = await _context.Lapang.FirstOrDefaultAsync(x => x.IdLapangan == bookingForm.Lapangan);
-            var AddStatus = await _context.Statuses.FirstOrDefaultAsync(x => x.IdStatus == bookingForm.Status);
-
-            if (ModelState.IsValid)
+            try
             {
-                // Cek apakah ada booking yang bertabrakan dengan jam yang sama pada lapangan yang sama
-                var existingBooking = await _context.Bookings
-                    .FirstOrDefaultAsync(b =>
-                        //b.Lapangan.IdLapangan == bookingForm.Lapangan &&
-                        b.TglBooking.Date == bookingForm.TglBooking.Date &&
-                        b.WaktuBooking.TimeOfDay == bookingForm.WaktuBooking.TimeOfDay);
+                // Cari lapangan berdasarkan idLapangan yang dipilih
+                var cekLapangan = await _context.Lapang.FirstOrDefaultAsync(l => l.IdLapangan == idLapangan);
 
-                if (existingBooking != null)
+                // Cek apakah ada booking yang bertabrakan dengan waktu yang sama pada lapangan yang sama
+                var cekData = await _context.Bookings.FirstOrDefaultAsync(b => b.WaktuBooking == data.WaktuBooking && b.TglBooking == data.TglBooking && b.Lapangan.NamaLapangan == cekLapangan.NamaLapangan);
+
+                // Tentukan status booking
+                var statusBooking = cekData != null ? _context.Statuses.FirstOrDefault(s => s.IdStatus == 2) : _context.Statuses.FirstOrDefault(s => s.IdStatus == 1);
+
+                // Hitung total harga berdasarkan harga lapangan dan durasi
+                var hargaSewa = cekLapangan.HargaSewaPerJam;
+
+                // Periksa jika waktu booking antara jam 19.00-00.00, tambahkan 30000 ke harga sewa per jam
+                if (data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
                 {
-                    // Jika ada booking yang bertabrakan, maka tolak booking baru
-                    TempData["Message"] = "Maaf, booking Anda kami tolak. Silakan untuk mengganti pilihan lapangan atau waktu.";
-                    return RedirectToAction("Create");
+                    hargaSewa += 10000;
                 }
 
-                // Booking diterima
-                TempData["Message"] = "Booking Anda diterima. Silakan untuk melakukan pembayaran.";
+                // Periksa jika waktu booking antara jam 19.00-00.00 pada hari Sabtu atau Minggu, tambahkan 20000 ke harga sewa per jam
+                if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
+                {
+                    hargaSewa += 20000;
+                }
+                // Periksa jika waktu booking antara jam 8.00-18.00 pada hari Sabtu atau Minggu, tambahkan 15000 ke harga sewa per jam
+                else if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 8 && data.WaktuBooking.Hour < 18)
+                {
+                    hargaSewa += 15000;
+                }
 
-                // Buat objek Booking dari data yang diterima dari form
+                var totalHarga = hargaSewa * data.Durasi;
+
+                // Cari member berdasarkan nama member yang diinputkan
+                var member = await _context.DaftarMembers.FirstOrDefaultAsync(m => m.NamaMember == Nama);
+
+                // Tentukan status member dan potongan harga
+                var statusMemberId = member != null ? 1 : 2; // Jika member ditemukan, status menjadi 1 (member), jika tidak, status menjadi 2 (non-member)
+                var potongan = statusMemberId == 1 ? 0.1 : 0; // Jika member, berikan potongan 10%, jika bukan member, potongan 0%
+
+                // Hitung total harga setelah potongan
+                var totalHargaSetelahPotongan = totalHarga - (totalHarga * potongan);
+
+                // Buat objek Booking baru dengan nilai yang sudah dihitung
                 var newBooking = new Booking
                 {
-                    Nama = bookingForm.Nama,
-                    StatusMember = AddMember,
-                    NoHp = bookingForm.NoHp,
-                    Lapangan = AddLapangan,
-                    TglBooking = bookingForm.TglBooking,
-                    WaktuBooking = bookingForm.WaktuBooking,
-                    Durasi = bookingForm.Durasi,
-                    Status = AddStatus,
-                    TotalHarga = bookingForm.TotalHarga
+                    Nama = data.Nama,
+                    StatusMember = _context.Members.FirstOrDefault(s => s.Id == statusMemberId),
+                    NoHp = data.NoHp,
+                    Email = data.Email,
+                    Lapangan = cekLapangan,
+                    TglBooking = data.TglBooking,
+                    WaktuBooking = data.WaktuBooking,
+                    Durasi = data.Durasi,
+                    Status = statusBooking,
+                    TotalHarga = (int)totalHargaSetelahPotongan // Menggunakan total harga setelah potongan
                 };
 
-                // Simpan booking baru ke dalam database
+                // Tambahkan booking baru ke dalam database
                 _context.Bookings.Add(newBooking);
                 await _context.SaveChangesAsync();
 
-                // Redirect ke halaman yang sesuai (misalnya, halaman sukses atau halaman lainnya)
+                // Redirect ke halaman yang sesuai (misalnya, halaman utama)
                 return RedirectToAction("Index", "Home");
             }
-            return View(bookingForm);
+            catch (Exception ex)
+            {
+                // Tangani kesalahan
+                return RedirectToAction("Error", "Home");
+            }
         }
-
 
         public IActionResult Detail(int id)
         {
@@ -110,58 +117,46 @@ namespace E_BookingFutsal.Controllers
 
         public IActionResult Update(int id)
         {
-            var lapangan = _context.Lapang.FirstOrDefault(x => x.IdLapangan == id);
-            return View(lapangan);
-        }
-
-        // Method Update dalam LapanganController
-        [HttpPost]
-        public async Task<IActionResult> Update([FromForm] Lapangan data, IFormFile foto)
-        {
-            var dataFromDb = await _context.Lapang.FirstOrDefaultAsync(x => x.IdLapangan == data.IdLapangan);
-
-            if (dataFromDb != null)
+            ViewBag.Members = _context.Members.Select(x => new SelectListItem
             {
-                dataFromDb.NamaLapangan = data.NamaLapangan;
+                Value = x.Id.ToString(),
+                Text = x.StatusMember
+            });
 
-                if (foto != null)
-                {
-                    if (foto.Length > 0)
-                    {
-                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
-                        var fileExt = Path.GetExtension(foto.FileName).ToLower();
-                        if (!allowedExtensions.Contains(fileExt))
-                        {
-                            ModelState.AddModelError("Foto", "File type is not allowed. Please upload a JPG or PNG file.");
-                            return View(data);
-                        }
+            ViewBag.Lapangan = _context.Lapang.Select(x => new SelectListItem
+            {
+                Value = x.IdLapangan.ToString(),
+                Text = x.NamaLapangan
+            });
 
-                        var fileFolder = Path.Combine(_env.WebRootPath, "lapangan");
+            ViewBag.Status = _context.Statuses.Select(x => new SelectListItem
+            {
+                Value = x.IdStatus.ToString(),
+                Text = x.NamaStatus
+            });
 
-                        if (!Directory.Exists(fileFolder))
-                        {
-                            Directory.CreateDirectory(fileFolder);
-                        }
-
-                        var fileName = "photo_" + data.NamaLapangan + Path.GetExtension(foto.FileName);
-                        var fullFilePath = Path.Combine(fileFolder, fileName);
-
-                        using (var stream = new FileStream(fullFilePath, FileMode.Create))
-                        {
-                            await foto.CopyToAsync(stream);
-                        }
-
-                        dataFromDb.Photo = fileName;
-                    }
-                }
-
-                // Konfirmasi perubahan ke dalam konteks basis data
-                _context.Lapang.Update(dataFromDb);
-                await _context.SaveChangesAsync();
-                TempData["success"] = "Lapangan berhasil diperbarui.";
-            }
-            return RedirectToAction("Index");
+            var bookingId = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).Where(b => b.IdBooking == id).FirstOrDefault();
+            return View(bookingId);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Update([FromForm] Booking data, int memberId, int lapanganId, int statusId)
+        {
+            data.StatusMember = _context.Members.Where(l => l.Id == memberId).FirstOrDefault();
+            data.Lapangan = _context.Lapang.Where(l => l.IdLapangan == lapanganId).FirstOrDefault();
+            data.Status = _context.Statuses.Where(l => l.IdStatus == statusId).FirstOrDefault();
+            _context.Bookings.Update(data);
+            _context.SaveChanges();
+            ModelState.Clear();
+            return RedirectToAction("Index", "Booking");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var booking = _context.Bookings.FirstOrDefault(x => x.IdBooking == id);
+            _context.Bookings.Remove(booking);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "booking");
+        }
     }
 }

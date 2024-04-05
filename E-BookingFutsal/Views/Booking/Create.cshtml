@@ -1,71 +1,167 @@
-﻿@model E_BookingFutsal.Models.ViewModel.BookingForm
+﻿@model Lapangan
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create Booking</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-@if (!string.IsNullOrEmpty(TempData["Message"] as string))
-{
-    <div class="alert alert-info">
-        @TempData["Message"]
-    </div>
-}
-<form asp-action="Create" method="post">
-    <div class="form-group">
-        <label asp-for="Nama" class="control-label"></label>
-        <input asp-for="Nama" class="form-control" />
-        <span asp-validation-for="Nama" class="text-danger"></span>
-    </div>
+        .booking {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <div class="form-group">
-        <label asp-for="StatusMember" class="control-label"></label>
-        <select asp-for="StatusMember" class="form-control" asp-items="ViewBag.Members"></select>
-        <span asp-validation-for="StatusMember" class="text-danger"></span>
-    </div>
+        .booking-card {
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+        }
 
-    <div class="form-group">
-        <label asp-for="NoHp" class="control-label"></label>
-        <input asp-for="NoHp" class="form-control" />
-        <span asp-validation-for="NoHp" class="text-danger"></span>
-    </div>
+        .booking-form {
+            flex: 1;
+            padding: 30px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Lapangan" class="control-label"></label>
-        <select asp-for="Lapangan" class="form-control" asp-items="ViewBag.Lapangan"></select>
-        <span asp-validation-for="Lapangan" class="text-danger"></span>
-    </div>
+        .booking-time {
+            flex: 1;
+            background-color: #007bff;
+            color: #fff;
+            padding: 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-    <div class="form-group">
-        <label asp-for="TglBooking" class="control-label"></label>
-        <input asp-for="TglBooking" class="form-control" />
-        <span asp-validation-for="TglBooking" class="text-danger"></span>
-    </div>
+        .time-detail h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
 
-    <div class="form-group">
-        <label asp-for="WaktuBooking" class="control-label"></label>
-        <input asp-for="WaktuBooking" class="form-control" />
-        <span asp-validation-for="WaktuBooking" class="text-danger"></span>
-    </div>
+        .time-detail p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-    <div class="form-group">
-        <label asp-for="Durasi" class="control-label"></label>
-        <input asp-for="Durasi" class="form-control" />
-        <span asp-validation-for="Durasi" class="text-danger"></span>
-    </div>
+        .time-detail hr {
+            width: 80%;
+            margin: 20px auto;
+            border-color: #fff;
+        }
 
-    <div class="form-group">
-        <label asp-for="TotalHarga" class="control-label"></label>
-        <input asp-for="TotalHarga" class="form-control" />
-        <span asp-validation-for="TotalHarga" class="text-danger"></span>
+        .form-field {
+            margin-bottom: 20px;
+        }
+
+            .form-field label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .form-field input,
+            .form-field select {
+                width: calc(100% - 20px);
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+                .form-field input[type="number"],
+                .form-field input[type="date"],
+                .form-field input[type="time"] {
+                    appearance: none;
+                }
+
+        .submit {
+            width: 100%;
+            background-color: #1fc38b;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            .submit:hover {
+                background-color: #17a974;
+            }
+    </style>
+</head>
+<body>
+    <div class="booking">
+        <div class="booking-card">
+            <div class="booking-form">
+                <form method="post" asp-controller="Booking" asp-action="Create">
+                    <input value="@Model.IdLapangan" name="idLapangan" hidden>
+                    <h2>Book Online</h2>
+                    <div class="form-field">
+                        <label>Nama Lapangan</label>
+                        <input type="text" name="nama" placeholder="@Model.NamaLapangan" class="form-control" disabled>
+                    </div>
+                    <div class="form-field">
+                        <label>Harga Lapangan</label>
+                        <input type="text" name="nama" placeholder="@Model.HargaSewaPerJam" class="form-control" disabled>
+                    </div>
+                    <div class="form-field">
+                        <label>Nama Pemesan</label>
+                        <input type="text" name="Nama" class="form-control" placeholder="Your Name">
+                    </div>
+                    <div class="form-field">
+                        <label>No Handphone</label>
+                        <input type="number" name="NoHp" class="form-control" placeholder="Your Number" pattern="[0-9]{11}" required>
+                    </div>
+                    <div class="form-field">
+                        <label>Email</label>
+                        <input type="text" name="Email" class="form-control" placeholder="Your Email">
+                    </div>
+                    <div class="form-field">
+                        <label>Tanggal</label>
+                        <input type="date" name="TglBooking" class="form-control" placeholder="Tanggal Booking">
+                    </div>
+                    <div class="form-field">
+                        <label>Waktu Booking</label>
+                        <input type="time" name="WaktuBooking" class="form-control" placeholder="Jam booking Start">
+                    </div>
+                    <div class="form-field">
+                        <label>Durasi</label>
+                        <input type="number" name="Durasi" class="form-control" placeholder="Durasi Booking">
+                    </div>
+                    <button class="submit">Book Sekarang</button>
+                </form>
+            </div>
+            <div class="booking-time">
+                <div class="time-detail">
+                    <h2>Operating Hours</h2>
+                    <hr>
+                    <p>Monday - Friday: 08:00 AM - 10:00 PM</p>
+                    <p>Saturday - Sunday:</p>
+                    <p>08:00 AM - 06:00 PM</p>
+                    <p>07:00 PM - 12:00 AM</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Status" class="control-label"></label>
-        <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses"></select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-</form>
+</body>
+</html>

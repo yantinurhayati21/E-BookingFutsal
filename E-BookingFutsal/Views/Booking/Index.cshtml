@@ -45,10 +45,8 @@
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Nama Pemesan</th>
-                                        <th>Status Member</th>
                                         <th>No HP</th>
                                         <th>Nama Lapangan</th>
-                                        <th>Tanggal Booking</th>
                                         <th>Waktu Booking</th>
                                         <th>Action</th>
                                     </tr>
@@ -58,10 +56,8 @@
                                     {
                                         <tr>
                                             <td>@booking.Nama</td>
-                                            <td>@booking.StatusMember</td>
                                             <td>@booking.NoHp</td>
-                                            <td>@booking.Lapangan.IdLapangan</td>
-                                            <td>@booking.TglBooking</td>
+                                            <td>@booking.Lapangan.NamaLapangan</td>
                                             <td>@booking.WaktuBooking</td>
                                             <td>
                                                 <a href="/Booking/Detail/@booking.IdBooking" class="btn btn-primary">Detail</a>

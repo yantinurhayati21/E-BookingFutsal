@@ -1,112 +1,197 @@
-﻿@* @model List<SharePhoto>
- *@
-<div class="main-content">
-    <div class="welcome-menu">
-        <div class="container text-center py-3">
-            <h1>Welcome to E-Booking Futsal</h1>
-            <h4>Temukan lapangan futsal terbaik dengan cepat dan mudah. <br />Booking lapangan favorit Anda sekarang juga!</h4>
-            <a href="#booking" class="btn btn-dark btn-lg">Booking Sekarang</a>
-        </div>
-    </div>
-    <div class="wrap-banner">
-        <!-- slide-show -->
-        <div class="slideshow">
-            <div class="tiva-slideshow-wrapper">
-                <div id="tiva-slideshow" class="nivoSlider">
-                    <a href="#" title="Slideshow image">
-                        <img class="img-responsive" src="~/home/img/slide-photo-1.jpeg" title="#caption1" alt="Slideshowimage">
-                    </a>
-                    <a href="#" title="Slideshow image">
-                        <img class="img-responsive" src="~/home/img/slide-photo-2.jpg" title="#caption2" alt="Slideshowimage">
-                    </a>
-                    <a href="#" title="Slideshow image">
-                        <img class="img-responsive" src="~/home/img/slide-photo-3.jpeg" title="#caption3" alt="Slideshowimage">
-                    </a>
-                </div>
-                <div id="caption1" class="nivo-html-caption">
-                    <div class="tiva-caption">
-                        <div class="left-right hidden-xs">
-                            <p class="caption-1">
-                                "Terus maju <span>Tidak peduli</span> Seberapa lambatnya langkahmu"
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div id="caption2" class="nivo-html-caption caption">
-                    <div class="tiva-caption">
-                        <div class="left-right hidden-xs">
-                            <p class="caption-2">
-                                <span class="text-1">"Kesuksesan</span>
-                                <span class="text-2">Dimulai dengan</span>
-                                <span class="text-3">Keberanian untuk mencoba"</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div id="caption3" class="nivo-html-caption caption">
-                    <div class="left-right hidden-xs">
-                        <div class="tiva-caption">
-                            <p class="caption-3">
-                                <span class="text-1">"Jangan pernah menyerah; </span>
-                                <span class="text-2">Setiap kegagalan</span>
-                                <span class="text-3">Adalah langkah menuju sukses"</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- main -->
-    <div id="wrapper-site">
-        <div id="content-wrapper" class="full-width">
-            <div id="main">
-                <section class="page-home">
-                    <!-- Events -->
-                    <div class="section spacing-10 group-image-special" id="events">
-                        <h1 class="text-center">Events</h1>
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="effect">
-                                    <a href="#">
-                                        <img class="img-fluid width-100" src="~/home/img/Event-1.jpeg" alt="banner-2" title="Events-1">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
-                                <div class="effect">
-                                    <a href="#">
-                                        <img class="img-fluid width-100" src="~/home/img/event.jpeg" alt="banner-2" title="Events-2">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-    </div>
-    <div class="container" id="booking">
-        <h1 class="text-center">Start Your Booking</h1>
-        <div class="row">
-            @* @foreach (var photo in Model)
-            {
-                <div class="col-md-4 mb-3">
-                    <div class="card">
-                        <div class="card-img-top hover-effect">
-                            <img src="~/upload/@photo.Photo" alt="@photo.JudulPhoto" class="card-img-top hover-zoom">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">@photo.NamaPengunggah</p>
-                            <h5 class="card-title">@photo.JudulPhoto</h5>
-                            <p class="card-text">@photo.Deskripsi</p>
-                            <p>@photo.Status.Name</p>
-                            <p class="card-text"><small class="text-muted">@photo.TanggalUpload.ToShortDateString()</small></p>
-                        </div>
-                    </div>
-                </div>
-            } *@
-        </div>
-    </div>
+﻿@model List<Lapangan>
 
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+        .card-header {
+            padding: 0;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card img {
+            width: 100%;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .ratings {
+            color: #f1c40f;
+        }
+
+            .ratings i {
+                font-size: 1rem;
+            }
+
+        .card-text {
+            padding-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+            .btn:hover {
+                background-color: #2980b9;
+            }
+
+    </style>
+
+</head>
+<body>
+    <div class="main-content">
+        <div class="welcome-menu">
+            <div class="container text-center py-3">
+                <h1>Welcome to E-Booking Futsal</h1>
+                <h4>Temukan lapangan futsal terbaik dengan cepat dan mudah. <br />Booking lapangan favorit Anda sekarang juga!</h4>
+                <a href="#bookingNow" class="btn btn-dark btn-lg">Booking Sekarang</a>
+            </div>
+        </div>
+        <div class="wrap-banner">
+            <!-- slide-show -->
+            <div class="slideshow">
+                <div class="tiva-slideshow-wrapper">
+                    <div id="tiva-slideshow" class="nivoSlider">
+                        <a href="#" title="Slideshow image">
+                            <img class="img-responsive" src="~/home/img/slide-photo-1.jpeg" title="#caption1" alt="Slideshowimage">
+                        </a>
+                        <a href="#" title="Slideshow image">
+                            <img class="img-responsive" src="~/home/img/slide-photo-2.jpg" title="#caption2" alt="Slideshowimage">
+                        </a>
+                        <a href="#" title="Slideshow image">
+                            <img class="img-responsive" src="~/home/img/slide-photo-3.jpeg" title="#caption3" alt="Slideshowimage">
+                        </a>
+                    </div>
+                    <div id="caption1" class="nivo-html-caption">
+                        <div class="tiva-caption">
+                            <div class="left-right hidden-xs">
+                                <p class="caption-1">
+                                    "Terus maju <span>Tidak peduli</span> Seberapa lambatnya langkahmu"
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="caption2" class="nivo-html-caption caption">
+                        <div class="tiva-caption">
+                            <div class="left-right hidden-xs">
+                                <p class="caption-2">
+                                    <span class="text-1">"Kesuksesan</span>
+                                    <span class="text-2">Dimulai dengan</span>
+                                    <span class="text-3">Keberanian untuk mencoba"</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="caption3" class="nivo-html-caption caption">
+                        <div class="left-right hidden-xs">
+                            <div class="tiva-caption">
+                                <p class="caption-3">
+                                    <span class="text-1">"Jangan pernah menyerah; </span>
+                                    <span class="text-2">Setiap kegagalan</span>
+                                    <span class="text-3">Adalah langkah menuju sukses"</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main -->
+        <div id="wrapper-site">
+            <div id="content-wrapper" class="full-width">
+                <div id="main">
+                    <section class="page-home">
+                        <!-- Events -->
+                        <div class="section spacing-10 group-image-special" id="events">
+                            <h1 class="text-center">Events</h1>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid width-100" src="~/home/img/Event-1.jpeg" alt="banner-2" title="Events-1">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="effect">
+                                        <a href="#">
+                                            <img class="img-fluid width-100" src="~/home/img/event.jpeg" alt="banner-2" title="Events-2">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="container" id="bookingNow">
+            <h1 class="text-center">Start Your Booking</h1>
+            <div class="row">
+                @foreach (var lapangan in Model)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="~/lapangan/@lapangan.Photo" alt="lapangan" class="img-fluid">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">@lapangan.NamaLapangan</h3>
+                                <div class="ratings">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="card-text">Harga Sewa Per Jam: Rp. @lapangan.HargaSewaPerJam</p>
+                                <a href="/booking/create/@lapangan.IdLapangan" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+    <script>
+        document.querySelector('.btn-dark').addEventListener('click', function () {
+            document.querySelector('#bookingNow').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -21,5 +21,6 @@ namespace E_BookingFutsal.Models
     {
         [Required(ErrorMessage = "Nama lapangan wajib diisi")]
         public string NamaLapangan { get; set; }
+        public int HargaSewaPerJam { get; set; }
     }
 }
