@@ -41,13 +41,17 @@ namespace E_BookingFutsal.Controllers
                 // Cek apakah ada booking yang bertabrakan dengan waktu yang sama pada lapangan yang sama
                 var cekData = await _context.Bookings.FirstOrDefaultAsync(b => b.WaktuBooking == data.WaktuBooking && b.TglBooking == data.TglBooking && b.Lapangan.NamaLapangan == cekLapangan.NamaLapangan);
 
+                if (cekData != null)
+                {
+                    TempData["ErrorMessage"] = "Status booking anda ditolak, mohon ubah waktu booking atau lapangan yang anda pilih.";
+                }
                 // Tentukan status booking
                 var statusBooking = cekData != null ? _context.Statuses.FirstOrDefault(s => s.IdStatus == 2) : _context.Statuses.FirstOrDefault(s => s.IdStatus == 1);
 
                 // Hitung total harga berdasarkan harga lapangan dan durasi
                 var hargaSewa = cekLapangan.HargaSewaPerJam;
 
-                // Periksa jika waktu booking antara jam 19.00-00.00, tambahkan 30000 ke harga sewa per jam
+                // Periksa jika waktu booking antara jam 19.00-00.00, tambahkan 10000 ke harga sewa per jam
                 if (data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
                 {
                     hargaSewa += 10000;
@@ -107,12 +111,12 @@ namespace E_BookingFutsal.Controllers
 
         public IActionResult Detail(int id)
         {
-            var lapangan = _context.Lapang.FirstOrDefault(u => u.IdLapangan == id);
-            if (lapangan == null)
+            var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).Include(b => b.StatusMember).ToList().FirstOrDefault(b => b.IdBooking==id);
+            if (bookings == null)
             {
                 return NotFound();
             }
-            return View(lapangan);
+            return View(bookings);
         }
 
         public IActionResult Update(int id)

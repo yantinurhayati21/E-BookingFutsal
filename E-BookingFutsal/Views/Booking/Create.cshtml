@@ -20,10 +20,12 @@
         }
 
         .booking {
+            margin-top: 170px;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin-bottom:80px;
         }
 
         .booking-card {
@@ -37,37 +39,37 @@
             flex-direction: row;
         }
 
+        .booking-time {
+            flex: 1;
+            padding: 30px;
+            background-color: #007bff;
+            color: #fff;
+        }
+
         .booking-form {
             flex: 1;
             padding: 30px;
         }
 
-        .booking-time {
-            flex: 1;
-            background-color: #007bff;
-            color: #fff;
-            padding: 5%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .time-detail {
+            margin-bottom: 30px;
         }
 
-        .time-detail h2 {
-            font-size: 30px;
-            margin-bottom: 20px;
-        }
+            .time-detail h2 {
+                font-size: 30px;
+                margin-bottom: 20px;
+            }
 
-        .time-detail p {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
+            .time-detail p {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
 
-        .time-detail hr {
-            width: 80%;
-            margin: 20px auto;
-            border-color: #fff;
-        }
+            .time-detail hr {
+                width: 80%;
+                margin: 20px auto;
+                border-color: #fff;
+            }
 
         .form-field {
             margin-bottom: 20px;
@@ -77,6 +79,7 @@
                 display: block;
                 font-weight: bold;
                 margin-bottom: 5px;
+                color: #333;
             }
 
             .form-field input,
@@ -112,6 +115,19 @@
 <body>
     <div class="booking">
         <div class="booking-card">
+            <div class="booking-time">
+                <div class="time-detail">
+                    <h2>Operating Hours</h2>
+                    <hr />
+                    <p>Monday - Friday:</p>
+                    <p>08:00 - 18:00 = harga sewa perjam * durasi</p>
+                    <p>19:00 - 00:00 = (harga sewa perjam + Rp 10.000) * durasi</p>
+                    <hr />
+                    <p>Saturday - Sunday:</p>
+                    <p>08:00 - 18:00 = (harga sewa perjam + Rp 15.000) * durasi</p>
+                    <p>19:00 - 00:00 = (harga sewa perjam + Rp 20.000) * durasi</p>
+                </div>
+            </div>
             <div class="booking-form">
                 <form method="post" asp-controller="Booking" asp-action="Create">
                     <input value="@Model.IdLapangan" name="idLapangan" hidden>
@@ -121,7 +137,7 @@
                         <input type="text" name="nama" placeholder="@Model.NamaLapangan" class="form-control" disabled>
                     </div>
                     <div class="form-field">
-                        <label>Harga Lapangan</label>
+                        <label>Harga Sewa Perjam</label>
                         <input type="text" name="nama" placeholder="@Model.HargaSewaPerJam" class="form-control" disabled>
                     </div>
                     <div class="form-field">
@@ -148,20 +164,17 @@
                         <label>Durasi</label>
                         <input type="number" name="Durasi" class="form-control" placeholder="Durasi Booking">
                     </div>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
                     <button class="submit">Book Sekarang</button>
                 </form>
-            </div>
-            <div class="booking-time">
-                <div class="time-detail">
-                    <h2>Operating Hours</h2>
-                    <hr>
-                    <p>Monday - Friday: 08:00 AM - 10:00 PM</p>
-                    <p>Saturday - Sunday:</p>
-                    <p>08:00 AM - 06:00 PM</p>
-                    <p>07:00 PM - 12:00 AM</p>
-                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+

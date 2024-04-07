@@ -21,7 +21,6 @@ namespace E_BookingFutsal.Controllers
         {
             List<Lapangan> lapang = _context.Lapang.ToList();
             return View(lapang);
-
         }
 
         public IActionResult IndexAdmin()

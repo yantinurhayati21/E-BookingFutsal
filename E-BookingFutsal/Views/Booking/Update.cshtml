@@ -1,0 +1,127 @@
+﻿@model Booking
+@{
+    ViewData["Title"] = "Details booking for " + @Model.Nama;
+}
+
+<style>
+    .container {
+        margin-top: 50px;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .form-select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        appearance: none;
+    }
+
+    .btn-primary,
+    .btn-outline-secondary {
+        padding: 10px 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-sm-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+</style>
+
+<div class="container">
+    <h4 class="text-center mb-4">Details booking for @Model.Nama</h4>
+    <hr />
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" action="/Booking/Update">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label asp-for="Nama" class="form-label">Nama Pemesan</label>
+                            <input asp-for="Nama" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="NoHp" class="form-label">Nomor Handphone:</label>
+                            <input asp-for="NoHp" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email:</label>
+                            <input asp-for="Email" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Lapangan.NamaLapangan" class="form-label">Nama Lapangan:</label>
+                            <select asp-items="@ViewBag.Lapangan" name="lapanganId" class="form-select">
+                                <option>Pilih Jenis Lapangan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="TglBooking" class="form-label">Tanggal Booking:</label>
+                            <input asp-for="TglBooking" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mb-3">
+                            <label asp-for="StatusMember.StatusMember" class="form-label">Status Member</label>
+                            <select asp-items="@ViewBag.Members" name="memberId" class="form-select">
+                                <option>Pilih Status Member</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="WaktuBooking" class="form-label">Waktu Booking:</label>
+                            <input asp-for="WaktuBooking" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Durasi" class="form-label">Durasi Booking:</label>
+                            <input asp-for="Durasi" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Status.NamaStatus" class="form-label">Status Booking:</label>
+                            <select asp-items="@ViewBag.Status" name="statusId" class="form-select">
+                                <option>Pilih Status Booking</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="TotalHarga" class="form-label">Total Harga:</label>
+                            <input asp-for="TotalHarga" type="text" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="IdBooking" value="@Model.IdBooking" />
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary">Show list of users</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

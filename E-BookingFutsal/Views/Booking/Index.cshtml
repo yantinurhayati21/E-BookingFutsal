@@ -44,10 +44,11 @@
                             <table id="example" class="table table-striped table-bordered">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Nama Pemesan</th>
+                                        <th>Nama Pemesan</th>                                      
                                         <th>No HP</th>
                                         <th>Nama Lapangan</th>
                                         <th>Waktu Booking</th>
+                                        <th>Status Booking</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,10 +56,11 @@
                                     @foreach (var booking in Model)
                                     {
                                         <tr>
-                                            <td>@booking.Nama</td>
+                                            <td>@booking.Nama</td>                                     
                                             <td>@booking.NoHp</td>
                                             <td>@booking.Lapangan.NamaLapangan</td>
                                             <td>@booking.WaktuBooking</td>
+                                            <td>@booking.Status.NamaStatus</td>
                                             <td>
                                                 <a href="/Booking/Detail/@booking.IdBooking" class="btn btn-primary">Detail</a>
                                                 <a href="/Booking/Update/@booking.IdBooking" class="btn btn-warning">Update</a>

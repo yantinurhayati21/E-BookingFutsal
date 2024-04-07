@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace E_BookingFutsal.Migrations
 {
     /// <inheritdoc />
-    public partial class lahaula : Migration
+    public partial class bismillah : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

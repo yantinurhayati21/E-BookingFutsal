@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_BookingFutsal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240403082930_lahaula")]
-    partial class lahaula
+    [Migration("20240405134142_bismillah")]
+    partial class bismillah
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
