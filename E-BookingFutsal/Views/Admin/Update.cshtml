@@ -1,7 +1,7 @@
-﻿@model E_BookingFutsal.Models.DaftarMember
+﻿@model E_BookingFutsal.Models.Admin
 
 @{
-    ViewData["Title"] = "Delete - Member";
+    ViewData["Title"] = "Update - Admin";
     Layout = "_LayoutAdmin";
 }
 
@@ -17,7 +17,7 @@
 
 <div class="card" style="max-width: 900px; margin: auto;">
     <div class="card-header bg-primary text-white text-center" style="padding: 20px">
-        <h3 class="mb-0">Detail Member</h3>
+        <h3 class="mb-0">Update Admin</h3>
     </div>
     <div class="card-body">
 
@@ -28,77 +28,57 @@
             </div>
         }
 
-        <form method="post" enctype="multipart/form-data" action="/DaftarMember/Delete">
+        <form method="post" enctype="multipart/form-data" action="/Admin/Update">
             <div class="mb-3 row">
-                <label asp-for="NamaMember" class="col-sm-4 col-form-label font-weight-bold fs-5">Nama Member</label>
+                <label asp-for="Nama" class="col-sm-4 col-form-label font-weight-bold fs-5">Nama Admin</label>
                 <div class="col-sm-8">
-                    <input asp-for="NamaMember" type="text" class="form-control fs-5" placeholder="Input Nama Member" readonly />
-                    <span asp-validation-for="NamaMember" class="text-danger"></span>
+                    <input asp-for="Nama" type="text" class="form-control fs-5" placeholder="Input Nama Admin" />
+                    <span asp-validation-for="Nama" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label asp-for="Username" class="col-sm-4 col-form-label font-weight-bold fs-5">Username</label>
                 <div class="col-sm-8">
-                    <input asp-for="Username" type="text" class="form-control fs-5" placeholder="Input Username" readonly />
+                    <input asp-for="Username" type="text" class="form-control fs-5" placeholder="Input Username" />
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label asp-for="Password" class="col-sm-4 col-form-label font-weight-bold fs-5">Password</label>
                 <div class="col-sm-8">
-                    <input asp-for="Password" type="text" class="form-control fs-5" placeholder="Input Password" readonly />
+                    <input asp-for="Password" type="text" class="form-control fs-5" placeholder="Input Password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label asp-for="NoHp" class="col-sm-4 col-form-label font-weight-bold fs-5">No Handphone</label>
                 <div class="col-sm-8">
-                    <input asp-for="NoHp" type="text" class="form-control fs-5" placeholder="Input No Handphone" readonly />
+                    <input asp-for="NoHp" type="text" class="form-control fs-5" placeholder="Input No Handphone" />
                     <span asp-validation-for="NoHp" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label asp-for="Email" class="col-sm-4 col-form-label font-weight-bold fs-5">Email</label>
                 <div class="col-sm-8">
-                    <input asp-for="Email" type="text" class="form-control fs-5" placeholder="Input Email" readonly />
+                    <input asp-for="Email" type="text" class="form-control fs-5" placeholder="Input Email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <div class="mb-3 row">
                 <label asp-for="Alamat" class="col-sm-4 col-form-label font-weight-bold fs-5">Alamat</label>
                 <div class="col-sm-8">
-                    <input asp-for="Alamat" type="text" class="form-control fs-5" placeholder="Input Alamat" readonly />
+                    <input asp-for="Alamat" type="text" class="form-control fs-5" placeholder="Input Alamat" />
                     <span asp-validation-for="Alamat" class="text-danger"></span>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label asp-for="TanggalLahir" class="col-sm-4 col-form-label font-weight-bold fs-5">Tanggal Lahir</label>
-                <div class="col-sm-8">
-                    <input asp-for="TanggalLahir" type="date" class="form-control fs-5" placeholder="Input Tanggal Lahir" readonly />
-                    <span asp-validation-for="TanggalLahir" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="mb-3 row">
-                <label asp-for="Foto" class="col-sm-4 col-form-label font-weight-bold fs-5">Foto Member</label>
-                <div class="col-sm-8">
-                    @if (!string.IsNullOrEmpty(Model.Foto))
-                    {
-                        <img src="~/members/@Model.Foto" class="img-fluid" alt="Lapangan Photo" width="200px" height="200px" />
-                    }
-                    else
-                    {
-                        <span>No Photo Available</span>
-                    }
-                </div>
-            </div>
-            <input type="hidden" name="IdMember" value="@Model.IdMember" />
+            <input type="hidden" name="Id" value="@Model.Id" />
             <div class="row">
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary form-control">Delete Member</button>
+                    <button type="submit" class="btn btn-primary form-control">Update</button>
                 </div>
                 <div class="col-md-6 mt-2 mt-md-0">
-                    <a asp-controller="DaftarMember" asp-action="ListMember" class="btn btn-outline-secondary form-control">
-                        Show list of users
+                    <a asp-controller="Admin" asp-action="ListAdmin" class="btn btn-outline-secondary form-control">
+                        cancel
                     </a>
                 </div>
             </div>

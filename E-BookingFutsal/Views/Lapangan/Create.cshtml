@@ -39,7 +39,7 @@
             <div class="mb-3 row">
                 <label asp-for="HargaSewaPerJam" class="col-sm-4 col-form-label font-weight-bold fs-5">Harga sewa perjam</label>
                 <div class="col-sm-8">
-                    <input asp-for="HargaSewaPerJam" type="text" class="form-control fs-5" placeholder="Input Nama Lapangan" />
+                    <input asp-for="HargaSewaPerJam" type="text" class="form-control fs-5" placeholder="Input Harga Sewa Perjam" />
                     <span asp-validation-for="HargaSewaPerJam" class="text-danger"></span>
                 </div>
             </div>
@@ -52,14 +52,21 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary form-control">Register</button>
+                    <button type="submit" class="btn btn-primary form-control">Create</button>
                 </div>
                 <div class="col-md-6 mt-2 mt-md-0">
-                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary form-control">
-                        Show list of users
+                    <a asp-controller="Lapangan" asp-action="Index" class="btn btn-outline-secondary form-control">
+                        Cancel
                     </a>
                 </div>
-            </div>
+            </div
         </form>
     </div>
 </div>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

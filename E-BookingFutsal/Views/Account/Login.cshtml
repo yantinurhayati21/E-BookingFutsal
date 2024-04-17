@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Login";
 }
-
+<partial name="_Notification" />
 <style>
     .login-card {
         border-radius: 10px;
@@ -22,20 +22,18 @@
     }
 
     .btn-primary {
-        background-color: #343a40; /* Warna latar belakang gelap */
-        border-color: #343a40; /* Warna border yang sesuai */
-        color: #ffffff; /* Warna teks putih */
+        background-color: #343a40;
+        border-color: #343a40;
+        color: #ffffff;
         padding: 10px 20px;
         border-radius: 5px;
     }
 
         .btn-primary:hover {
-            background-color: #1e2124; /* Warna latar belakang yang berbeda saat dihover */
-            border-color: #1e2124; /* Warna border yang sesuai saat dihover */
+            background-color: #1e2124;
+            border-color: #1e2124;
         }
 
-
-    /* Gaya untuk ikon close */
     .close-icon {
         position: absolute;
         top: 10px;
@@ -84,7 +82,6 @@
         font-size: 12px;
     }
 
-    /* Animation for form submission */
     .animated {
         animation-duration: 0.5s;
         animation-fill-mode: both;
@@ -100,7 +97,6 @@
         <div class="col-md-6">
             <div class="card login-card">
                 <div class="card-body">
-                    <!-- Tambahkan ikon close di sini -->
                     <a href="/" class="close-icon"><i class="fa fa-times" aria-hidden="true"></i></a>
 
                     <h2 class="card-title text-center mb-4">Login</h2>
@@ -140,15 +136,13 @@
 
 @section Scripts {
     <script>
-// Animation for form submission
         document.getElementById("loginForm").addEventListener("submit", function (event) {
             event.preventDefault();
             var form = this;
-            // Add animation class
             form.classList.add("animated", "fadeOut");
             setTimeout(function () {
                 form.submit();
-            }, 500); // Wait for animation to finish
+            }, 500);
         });
     </script>
 }

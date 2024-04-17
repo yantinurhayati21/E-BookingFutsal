@@ -42,20 +42,14 @@
                     <span asp-validation-for="HargaSewaPerJam" class="text-danger"></span>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label class="col-sm-4 col-form-label font-weight-bold fs-5">Foto Lapangan</label>
-                <div class="col-sm-8">
-                    <input type="file" name="foto" class="form-control" />
-                </div>
-            </div>
             <input type="hidden" name="IdLapangan" value="@Model.IdLapangan" />
             <div class="row">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary form-control">Update</button>
                 </div>
                 <div class="col-md-6 mt-2 mt-md-0">
-                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary form-control">
-                        Show list of users
+                    <a asp-controller="Lapangan" asp-action="Index" class="btn btn-outline-secondary form-control">
+                        cancel
                     </a>
                 </div>
             </div>

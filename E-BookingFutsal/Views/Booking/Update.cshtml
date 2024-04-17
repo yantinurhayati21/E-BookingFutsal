@@ -1,6 +1,7 @@
 ﻿@model Booking
 @{
     ViewData["Title"] = "Details booking for " + @Model.Nama;
+    Layout = "_LayoutAdmin";
 }
 
 <style>
@@ -57,8 +58,18 @@
     }
 </style>
 
+<div class="header--wrapper">
+    <div class="header--title">
+        <span>Primary</span>
+        <h2>Dashboard</h2>
+    </div>
+    <div class="user--info">
+        <img src="~/image/img.jpeg" alt="User Image">
+    </div>
+</div>
+
 <div class="container">
-    <h4 class="text-center mb-4">Details booking for @Model.Nama</h4>
+    <h4 class="text-center mb-4">Update booking for @Model.Nama</h4>
     <hr />
 
     <div class="card">
@@ -117,9 +128,15 @@
                     </div>
                 </div>
                 <input type="hidden" name="IdBooking" value="@Model.IdBooking" />
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Update</button>
-                    <a asp-controller="Account" asp-action="Show" class="btn btn-outline-secondary">Show list of users</a>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Update</button>
+                    </div>
+                    <div class="col-md-3 mt-2 mt-md-0">
+                        <a asp-controller="Booking" asp-action="Index" class="btn btn-outline-secondary form-control">
+                            Cancel
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>

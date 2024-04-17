@@ -1,5 +1,6 @@
 ﻿@model List<Lapangan>
 
+<partial name="_Notification" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +81,6 @@
             </div>
         </div>
         <div class="wrap-banner">
-            <!-- slide-show -->
             <div class="slideshow">
                 <div class="tiva-slideshow-wrapper">
                     <div id="tiva-slideshow" class="nivoSlider">
@@ -128,12 +128,10 @@
                 </div>
             </div>
         </div>
-        <!-- main -->
         <div id="wrapper-site">
             <div id="content-wrapper" class="full-width">
                 <div id="main">
                     <section class="page-home">
-                        <!-- Events -->
                         <div class="section spacing-10 group-image-special" id="events">
                             <h1 class="text-center">Events</h1>
                             <div class="row">
@@ -200,12 +198,5 @@
         </div>
 
     </div>
-    <script>
-        document.querySelector('.btn-dark').addEventListener('click', function () {
-            document.querySelector('#bookingNow').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    </script>
 </body>
 </html>

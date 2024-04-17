@@ -33,7 +33,6 @@
             color: #fff;
             overflow: hidden;
             transition: all 0.5s linear;
-            /* background: rgba(113, 99, 186, 255); */
             background-color: #040D12;
         }
 
@@ -89,6 +88,7 @@
             left: 0;
             width: 100%;
         }
+
         /* *** main body section *** */
         .main--content {
             position: relative;
@@ -124,6 +124,7 @@
             align-items: center;
             gap: 1;
         }
+
         /* *** card container ***  */
         .card--container {
             background: #fff;
@@ -199,6 +200,7 @@
             letter-spacing: 2px;
             font-family: 'Courier New', Courier, monospace;
         }
+
         /* color css */
         .light-red {
             background: rgb(251, 233, 233);
@@ -247,15 +249,27 @@
                 </a>
             </li>
             <li>
-                <a asp-controller="DaftarMember" asp-action="Index">
+                <a asp-controller="DaftarMember" asp-action="ListMember">
                     <i class="fas fa-user"></i>
                     <span>Member</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Admin" asp-action="ListAdmin">
+                    <i class="fas fa-user"></i>
+                    <span>Admin</span>
                 </a>
             </li>
             <li>
                 <a asp-controller="Lapangan" asp-action="Index">
                     <i class="fas fa-square"></i>
                     <span>Lapangan</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Booking" asp-action="Index">
+                    <i class="fas fa-user"></i>
+                    <span>Booking</span>
                 </a>
             </li>
             <li class="exit">
@@ -270,6 +284,6 @@
     <div class="main--content">
         @RenderBody()
     </div>
-
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -37,14 +37,12 @@ namespace E_BookingFutsal.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel data)
         {
-            // Periksa apakah peran yang dipilih sesuai dengan peran yang ditemukan
             if (!IsRoleValid(data.Roles, data.Username, data.Password))
             {
                 TempData["ErrorMessage"] = "The selected role is incorrect for this user";
                 return RedirectToAction(nameof(Login));
             }
 
-            // Lanjutkan pencarian admin dan member
             var admin = _context.Admins.FirstOrDefault(x => x.Username == data.Username && x.Password == data.Password);
             var member = _context.DaftarMembers.FirstOrDefault(x => x.Username == data.Username && x.Password == data.Password);
 
@@ -59,7 +57,6 @@ namespace E_BookingFutsal.Controllers
                 new Claim(ClaimTypes.Name, data.Username)
             };
 
-            // Menentukan roles dan menambahkannya ke klaim
             if (admin != null)
             {
                 claims.Add(new Claim(ClaimTypes.Role, "Admin"));
@@ -74,9 +71,8 @@ namespace E_BookingFutsal.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-            TempData["SuccessMessage"] = "Login successful";
+            TempData["Success"] = "Login successful";
 
-            // Redirect berdasarkan apakah pengguna adalah admin atau member
             if (admin != null)
             {
                 return Redirect("/Admin/Index");
@@ -85,18 +81,14 @@ namespace E_BookingFutsal.Controllers
             {
                 return Redirect("/DaftarMember/Index");
             }
-
-            // Jika tidak ada peran yang cocok, Anda dapat menentukan default redirect di sini
             return Redirect("/SignIn");
         }
 
         private bool IsRoleValid(int selectedRole, string username, string password)
         {
-            // Lakukan pencarian berdasarkan username dan password
             var admin = _context.Admins.FirstOrDefault(x => x.Username == username && x.Password == password);
             var member = _context.DaftarMembers.FirstOrDefault(x => x.Username == username && x.Password == password);
 
-            // Periksa apakah peran yang dipilih sesuai dengan peran yang ditemukan
             if (admin != null && selectedRole != 1)
             {
                 return false;
@@ -117,8 +109,6 @@ namespace E_BookingFutsal.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterMember(DaftarMember data, [FromForm] IFormFile foto)
         {
-
-            // Validasi unik username
             if (_context.DaftarMembers.Any(u => u.Username == data.Username))
             {
                 ModelState.AddModelError("Username", "Username is already taken");
@@ -137,7 +127,6 @@ namespace E_BookingFutsal.Controllers
 
             };
 
-            // Simpan foto jika ada
             if (foto != null)
             {
                 if (foto.Length > 0)
@@ -150,7 +139,7 @@ namespace E_BookingFutsal.Controllers
                         return View(data);
                     }
 
-                    var fileFolder = Path.Combine(_env.WebRootPath, "uploads");
+                    var fileFolder = Path.Combine(_env.WebRootPath, "members");
                     if (!Directory.Exists(fileFolder))
                     {
                         Directory.CreateDirectory(fileFolder);
@@ -169,7 +158,7 @@ namespace E_BookingFutsal.Controllers
 
             _context.DaftarMembers.Add(newMember);
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = "Successful registration. Please login.";
+            TempData["Success"] = "Successful registration. Please login.";
 
             return RedirectToAction("Login", "Account");
         }
@@ -182,25 +171,16 @@ namespace E_BookingFutsal.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAdmin(Admin data)
         {
-            /*if (!ModelState.IsValid)
-            {
-                return View(data);
-            }
-*/
-            // Validasi unik username
             if (_context.Admins.Any(u => u.Username == data.Username))
             {
                 ModelState.AddModelError("Username", "Username is already taken");
                 return View(data);
             }
 
-            // Cari objek roles dari tabel Roles yang sesuai dengan peran "Admin"
             var adminRole = _context.Roles.FirstOrDefault(r => r.Name == "Admin");
 
             if (adminRole == null)
             {
-                // Handle jika role "Admin" tidak ditemukan
-                // Anda bisa menambahkan log atau melakukan tindakan lain sesuai kebutuhan aplikasi Anda
                 return RedirectToAction("Error", "Home");
             }
             var newAdmin = new Admin
@@ -216,7 +196,7 @@ namespace E_BookingFutsal.Controllers
             _context.Admins.Add(newAdmin);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Successful registration. Please login.";
+            TempData["Success"] = "Successful registration. Please login.";
 
             return RedirectToAction("Login", "Account");
         }

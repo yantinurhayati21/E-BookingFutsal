@@ -75,10 +75,9 @@ namespace E_BookingFutsal.Controllers
                     lapangan.Photo =fileName;
                 }
             }
-
             _context.Lapang.Add(lapangan);
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = "Lapangan berhasil ditambahkan.";
+            TempData["Success"] = "Lapangan berhasil ditambahkan.";
             return RedirectToAction("Index");
         }
 
@@ -100,7 +99,7 @@ namespace E_BookingFutsal.Controllers
 
         // Method Update dalam LapanganController
         [HttpPost]
-        public async Task<IActionResult> Update([FromForm] Lapangan data, IFormFile foto)
+        public async Task<IActionResult> Update([FromForm] Lapangan data)
         {
             var dataFromDb = await _context.Lapang.FirstOrDefaultAsync(x => x.IdLapangan == data.IdLapangan);
 
@@ -108,37 +107,6 @@ namespace E_BookingFutsal.Controllers
             {
                 dataFromDb.NamaLapangan = data.NamaLapangan;
                 dataFromDb.HargaSewaPerJam = data.HargaSewaPerJam;
-
-                if (foto != null)
-                {
-                    if (foto.Length > 0)
-                    {
-                        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
-                        var fileExt = Path.GetExtension(foto.FileName).ToLower();
-                        if (!allowedExtensions.Contains(fileExt))
-                        {
-                            ModelState.AddModelError("Foto", "File type is not allowed. Please upload a JPG or PNG file.");
-                            return View(data);
-                        }
-
-                        var fileFolder = Path.Combine(_env.WebRootPath, "lapangan");
-
-                        if (!Directory.Exists(fileFolder))
-                        {
-                            Directory.CreateDirectory(fileFolder);
-                        }
-
-                        var fileName = "photo_" + data.NamaLapangan + Path.GetExtension(foto.FileName);
-                        var fullFilePath = Path.Combine(fileFolder, fileName);
-
-                        using (var stream = new FileStream(fullFilePath, FileMode.Create))
-                        {
-                            await foto.CopyToAsync(stream);
-                        }
-
-                        dataFromDb.Photo = fileName;
-                    }
-                }
 
                 // Konfirmasi perubahan ke dalam konteks basis data
                 _context.Lapang.Update(dataFromDb);

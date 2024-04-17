@@ -23,5 +23,7 @@ namespace E_BookingFutsal.Models.ViewModel
 
         [Required(ErrorMessage = "Alamat wajib diisi")]
         public string Alamat { get; set; }
+
+        public int Role { get; set; }
     }
 }

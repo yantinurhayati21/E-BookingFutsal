@@ -1,7 +1,7 @@
 ﻿@model Lapangan
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create - Booking";
 }
 
 <!DOCTYPE html>
@@ -170,7 +170,16 @@
                             @TempData["ErrorMessage"]
                         </div>
                     }
-                    <button class="submit">Book Sekarang</button>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary form-control">Booking Now</button>
+                        </div>
+                        <div class="col-md-6 mt-2 mt-md-0">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary form-control">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>               
                 </form>
             </div>
         </div>

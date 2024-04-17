@@ -23,6 +23,13 @@ namespace E_BookingFutsal.Controllers
             return View(bookings);
         }
 
+        public IActionResult ListBooking()
+        {
+            var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).ToList();
+            return View(bookings);
+        }
+
+
         public IActionResult Create(int id)
         {
             var getIdLapangan = _context.Lapang.Where(l => l.IdLapangan == id).FirstOrDefault();
@@ -112,6 +119,16 @@ namespace E_BookingFutsal.Controllers
         public IActionResult Detail(int id)
         {
             var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).Include(b => b.StatusMember).ToList().FirstOrDefault(b => b.IdBooking==id);
+            if (bookings == null)
+            {
+                return NotFound();
+            }
+            return View(bookings);
+        }
+
+        public IActionResult DetailFromMember(int id)
+        {
+            var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).Include(b => b.StatusMember).ToList().FirstOrDefault(b => b.IdBooking == id);
             if (bookings == null)
             {
                 return NotFound();
