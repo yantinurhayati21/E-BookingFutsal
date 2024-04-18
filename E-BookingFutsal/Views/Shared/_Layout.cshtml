@@ -8,28 +8,74 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
     <!-- libs CSS -->
-    <link rel="stylesheet" href="~/home/libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/home/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/nivo-slider.css">
-    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/animate.css">
-    <link rel="stylesheet" href="~/home/libs/nivo-slider/css/style.css">
-    <link rel="stylesheet" href="~/home/libs/font-material/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="~/home/libs/slider-range/css/jslider.css">
-    <link rel="stylesheet" href="~/home/libs/owl-carousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="~/home/libs/slick-slider/css/slick.css">
-    <link rel="stylesheet" href="~/home/libs/slick-slider/css/slick-theme.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-
     <link rel="stylesheet" type="text/css" href="~/home/css/style.css">
     <link rel="stylesheet" type="text/css" href="~/home/css/reponsive.css">
 
     <style>
+        /* CSS untuk ID */
         #tiva-slideshow {
             margin-top: 110px;
         }
 
+        #search_widget {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        #block_myaccount_infos {
+            margin-left: auto; /* Pindahkan ke sebelah kanan */
+        }
+
+            #block_myaccount_infos .myaccount-title {
+                display: none;
+            }
+
+        #acount {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            #acount .account-list-content {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                #acount .account-list-content div {
+                    margin-bottom: 10px;
+                }
+
+                #acount .account-list-content a {
+                    display: flex;
+                    align-items: center;
+                    color: #333;
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+                }
+
+                    #acount .account-list-content a:hover {
+                        color: #111;
+                    }
+
+                    #acount .account-list-content a i {
+                        margin-right: 5px;
+                    }
+
+        /* Header Styles */
         header {
             position: fixed;
             top: 0;
@@ -50,7 +96,7 @@
             font-weight: bold;
             transition: color 0.3s ease;
             margin-right: 15px;
-            font-size:15px;
+            font-size: 15px;
         }
 
             .navbar-nav .nav-link:hover {
@@ -78,23 +124,94 @@
                 width: 0;
             }
 
-        .welcome-menu{
-            margin-top:110px;
-            height: 130px;
+        /* Welcome Menu Styles */
+        .welcome-menu {
+            text-align: center;
+            padding: 50px 0;
         }
-        .welcome-menu h1 {
-            font-weight: bold;
+
+            .welcome-menu h1 {
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .welcome-menu h4 {
+                margin-bottom: 20px;
+                color: #666;
+            }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            margin: 0.25rem 0;
+        }
+
+        .navbar {
+            padding: 15px 0;
+        }
+
+        .contact {
+            padding: 50px 0;
+        }
+
+        .contact-about h3,
+        .contact-contact h3 {
+            color: #333;
             margin-bottom: 20px;
         }
 
-        .welcome-menu h4{
-                margin-bottom: 20px;
+        .contact-about p {
+            font-size: 16px;
+            color: #666;
         }
 
-        .text-center {
-            padding-top: 40px
+        .log {
+            margin-bottom: 15px;
         }
 
+            .log p {
+                margin-bottom: 0;
+                color: #666;
+            }
+
+        .icons a {
+            margin-right: 10px;
+            color: #333;
+        }
+
+        /* Footer Styles */
+        footer {
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Back to Top Button Styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+            .back-to-top a {
+                color: #333;
+                font-size: 24px;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .back-to-top a:hover {
+                    color: #111;
+                }
+
+        .back-to-top a i {
+            animation: arrow-fade 1.5s ease infinite;
+        }
+
+        /* Animasi hover pada gambar */
         .effect {
             position: relative;
             overflow: hidden;
@@ -120,7 +237,7 @@
             }
 
             .effect:hover::before {
-                opacity: 1; 
+                opacity: 1;
             }
 
             .effect a {
@@ -132,39 +249,8 @@
                 .effect a:hover {
                     text-decoration: none;
                 }
-
-        section{
-            padding-top: 20px;
-        }
-
-        .contact-about h3,
-        .contact-contact h3 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .contact-about p {
-            font-size: 16px;
-        }
-
-        .log {
-            margin-bottom: 15px;
-        }
-
-            .log p {
-                margin-bottom: 0; 
-            }
-
-        .icons a {
-            margin-right: 10px;
-            color: #333;
-        }
-
-        footer {
-            margin-bottom: 0;
-            font-weight:bold;
-        }
     </style>
+
 </head>
 <body id="home3">
     <header>
@@ -181,8 +267,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Navigation Links -->
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#">Home</a>
                         </li>
@@ -194,37 +280,25 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#contact">Contact Person</a>
-                        </li>
+                        </li>                      
                     </ul>
-                </div>
-                <div id="search_widget" class="d-flex align-items-center justify-content-end">
-                    <div id="block_myaccount_infos">
-                        <div class="myaccount-title hidden-sm-down dropdown d-flex align-items-center justify-content-center">
-                            <a href="#acount" data-toggle="collapse" class="acount">
-                                <i class="fa fa-user" aria-hidden="true"></i>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="userDropdown" id="userDropdownMenu">
+                            <a class="dropdown-item" asp-controller="Account" asp-action="Login" rel="nofollow" title="Log in to your customer account">
+                                <i class="fa fa-sign-in"></i>
+                                <span>LogIn Account</span>
                             </a>
-                        </div>
-                        <div id="acount" class="collapse">
-                            <div class="account-list-content">
-                                <div>
-                                    <a class="login" asp-controller="Account" asp-action="Login" rel="nofollow" title="Log in to your customer account">
-                                        <i class="fa fa-sign-in"></i>
-                                        <span>LogIn Account</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a class="registerAdmin" asp-controller="Account" asp-action="RegisterAdmin" rel="nofollow" title="Register Admin">
-                                        <i class="fa fa-user"></i>
-                                        <span>Register Admin</span>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a class="registerMember" asp-controller="Account" asp-action="RegisterMember" rel="nofollow" title="Register Member">
-                                        <i class="fa fa-address-card"></i>
-                                        <span>Register Member</span>
-                                    </a>
-                                </div>
-                            </div>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="RegisterAdmin" rel="nofollow" title="Register Admin">
+                                <i class="fa fa-user"></i> 
+                                <span>Register Admin</span>
+                            </a>
+                            <a class="dropdown-item" asp-controller="Account" asp-action="RegisterMember" rel="nofollow" title="Register Member">
+                                <i class="fa fa-address-card"></i>
+                                <span>Register Member</span>
+                                </a>
                         </div>
                     </div>
                 </div>
@@ -247,18 +321,18 @@
                     <div class="contact-contact">
                         <h3>Contact Us</h3>
                         <div class="log">
-                            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
                             <p>yantinurhayati051@gmail.com</p>
                         </div>
                         <div class="log">
-                            <i class="fa-solid fa-phone"></i>
+                            <i class="fa fa-phone"></i>
                             <p>0853-2184-0790</p>
                         </div>
                         <div class="icons">
-                            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
@@ -269,7 +343,7 @@
     <!-- footer -->
     <footer class="bg-light text-dark py-4">
         <div class="container text-center">
-            <p>Created By Yanti Nurhayati <i class="fa-solid fa-heart"></i></p>
+            <p>Created By Yanti Nurhayati <i class="fa fa-heart"></i></p>
         </div>
     </footer>
 
@@ -279,32 +353,25 @@
             <i class="fa fa-long-arrow-up"></i>
         </a>
     </div>
-    <!-- Page Loader -->
-    <div id="page-preloader">
-        <div class="page-loading">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-    </div>
     <!-- Vendor JS -->
-    <script src="~/home/libs/jquery/jquery.min.js"></script>
-    <script src="~/home/libs/popper/popper.min.js"></script>
-    <script src="~/home/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/home/libs/nivo-slider/js/jquery.nivo.slider.js"></script>
-    <script src="~/home/libs/owl-carousel/owl.carousel.min.js"></script>
-    <script src="~/home/libs/slider-range/js/tmpl.js"></script>
-    <script src="~/home/libs/slider-range/js/jquery.dependClass-0.1.js"></script>
-    <script src="~/home/libs/slider-range/js/draggable-0.1.js"></script>
-    <script src="~/home/libs/slider-range/js/jquery.slider.js"></script>
-    <script src="~/home/libs/slick-slider/js/slick.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <!-- Template JS -->
     <script src="~/home/js/theme.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var userDropdownMenu = document.getElementById("userDropdownMenu");
+
+            document.getElementById("userDropdown").onclick = function () {
+                if (userDropdownMenu.style.display === "block") {
+                    userDropdownMenu.style.display = "none";
+                } else {
+                    userDropdownMenu.style.display = "block";
+                }
+            };
+        });
+    </script>
 </body>
 </html>
-
