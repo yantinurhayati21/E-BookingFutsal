@@ -1,12 +1,14 @@
 ﻿using E_BookingFutsal.Data;
 using E_BookingFutsal.Models;
 using E_BookingFutsal.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_BookingFutsal.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
         private readonly AppDbContext _context;

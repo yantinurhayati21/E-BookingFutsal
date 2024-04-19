@@ -6,9 +6,11 @@ using System.Globalization;
 using System.Security.Claims;
 using E_BookingFutsal.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_BookingFutsal.Controllers
 {
+    [Authorize]
     public class LapanganController : Controller
     {
         private readonly AppDbContext _context;
@@ -21,6 +23,12 @@ namespace E_BookingFutsal.Controllers
         }
 
         public IActionResult Index()
+        {
+            List<Lapangan> lapangan = _context.Lapang.ToList();
+            return View(lapangan);
+        }
+
+        public IActionResult ListLapangan()
         {
             List<Lapangan> lapangan = _context.Lapang.ToList();
             return View(lapangan);
@@ -82,6 +90,16 @@ namespace E_BookingFutsal.Controllers
         }
 
         public IActionResult Detail(int id)
+        {
+            var lapangan = _context.Lapang.FirstOrDefault(u => u.IdLapangan == id);
+            if (lapangan == null)
+            {
+                return NotFound();
+            }
+            return View(lapangan);
+        }
+
+        public IActionResult DetailFromMember(int id)
         {
             var lapangan = _context.Lapang.FirstOrDefault(u => u.IdLapangan == id);
             if (lapangan == null)

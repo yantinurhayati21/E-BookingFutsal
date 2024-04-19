@@ -11,123 +11,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style type="text/css">
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
+        .welcome-menu {
+            background-color: #f5f5f5;
+            padding: 50px 0;
+            display: flex;
+            align-items: center;
         }
 
-            .card:hover {
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            .welcome-menu .welcome-text {
+                flex: 1;
+                padding: 0 50px;
             }
 
-        .card-header {
-            padding: 0;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+                .welcome-menu .welcome-text h1 {
+                    font-size: 3rem;
+                    margin-bottom: 20px;
+                    color: #333;
+                }
+
+                .welcome-menu .welcome-text h4 {
+                    font-size: 1rem;
+                    margin-bottom: 30px;
+                    color: #555;
+                }
+
+                .welcome-menu .welcome-text .btn {
+                    font-size: 1.25rem;
+                    padding: 10px 30px;
+                }
+
+            .welcome-menu img {
+                max-width: 50%;
+                margin-right: 50px;
+            }
+
+            .page-home{
+            background-color: #f5f6f7;
+            }
+
+        .container {
+            display: flex;
+            max-width: 100%;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            flex-direction: row;
         }
 
-        .card img {
+        .card {
+            margin: 10px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 300px;
+        }
+
+        .card-header img {
             width: 100%;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
+            height: 200px;
+            object-fit: cover;
         }
 
         .card-body {
             padding: 20px;
+            min-height: 250px;
         }
 
-        .card-title {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
+        .namerate {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         .ratings {
-            color: #f1c40f;
+            margin: 18px 0 15px;
         }
 
-            .ratings i {
-                font-size: 1rem;
+            .ratings .fa-solid {
+                color: #f44336;
             }
 
-        .card-text {
-            padding-top: 40px;
-            margin-bottom: 15px;
+            .ratings .fa-regular {
+                color: #f44336;
+                ;
+            }
+
+        .details {
+            margin: 15px;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: #3498db;
-            color: #fff;
+            .details i {
+                width: 22px;
+                text-align: center;
+            }
+
+            .details .fa-solid {
+                color: #3471eb;
+            }
+
+        .book {
+            display: block;
+            margin: 35px auto 30px;
+            background: #fff;
+            border: 1px solid #34a8eb;
+            border-radius: 8px;
+            padding: 10px 50px;
+            color: #34a8eb;
+            text-align: center;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
+            cursor: pointer;
+            transition: 0.5s;
         }
 
-            .btn:hover {
-                background-color: #2980b9;
+            .book:hover {
+                background: #34a8eb;
+                border: 1px solid #34a8eb;
+                color: #fff;
             }
 
     </style>
-
 </head>
 <body>
     <div class="main-content">
         <div class="welcome-menu">
-            <div class="container text-center py-3">
-                <h1 class="mt-5">Welcome to E-Booking Futsal</h1>
-                <h4>Temukan lapangan futsal terbaik dengan cepat dan mudah. <br />Booking lapangan favorit Anda sekarang juga!</h4>
+            <img src="~/img/futsal.png" alt="Welcome Image">
+            <div class="welcome-text">
+                <h1 style="margin-top:30px;">Welcome to E-Booking Futsal</h1>
+                <h4>
+                    Selamat datang di E-Booking Futsal, tempat terbaik untuk booking lapangan futsal secara online,
+                    Dapatkan pengalaman bermain futsal yang lebih menyenangkan dan praktis dengan E-Booking Futsal!
+                    Segera booking lapangan favorit Anda sekarang juga dan nikmati berbagai keuntungan serta kemudahan yang kami tawarkan. 
+                    Bergabunglah sebagai member kami dengan <a href="Account/RegisterMember">klik disini</a> dan dapatkan diskon eksklusif setiap pemesanan.
+
+                    Jadi bagian dari komunitas kami dan nikmati pengalaman bermain futsal yang lebih menyenangkan dan terjangkau. Ayo, booking sekarang dan rasakan perbedaannya!
+                </h4>
                 <a href="#bookingNow" class="btn btn-dark btn-lg">Booking Sekarang</a>
-            </div>
-        </div>
-        <div class="wrap-banner">
-            <div class="slideshow">
-                <div class="tiva-slideshow-wrapper">
-                    <div id="tiva-slideshow" class="nivoSlider">
-                        <a href="#" title="Slideshow image">
-                            <img class="img-responsive" src="~/home/img/slide-photo-1.jpeg" title="#caption1" alt="Slideshowimage">
-                        </a>
-                        <a href="#" title="Slideshow image">
-                            <img class="img-responsive" src="~/home/img/slide-photo-2.jpg" title="#caption2" alt="Slideshowimage">
-                        </a>
-                        <a href="#" title="Slideshow image">
-                            <img class="img-responsive" src="~/home/img/slide-photo-3.jpeg" title="#caption3" alt="Slideshowimage">
-                        </a>
-                    </div>
-                    <div id="caption1" class="nivo-html-caption">
-                        <div class="tiva-caption">
-                            <div class="left-right hidden-xs">
-                                <p class="caption-1">
-                                    "Terus maju <span>Tidak peduli</span> Seberapa lambatnya langkahmu"
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="caption2" class="nivo-html-caption caption">
-                        <div class="tiva-caption">
-                            <div class="left-right hidden-xs">
-                                <p class="caption-2">
-                                    <span class="text-1">"Kesuksesan</span>
-                                    <span class="text-2">Dimulai dengan</span>
-                                    <span class="text-3">Keberanian untuk mencoba"</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="caption3" class="nivo-html-caption caption">
-                        <div class="left-right hidden-xs">
-                            <div class="tiva-caption">
-                                <p class="caption-3">
-                                    <span class="text-1">"Jangan pernah menyerah; </span>
-                                    <span class="text-2">Setiap kegagalan</span>
-                                    <span class="text-3">Adalah langkah menuju sukses"</span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div id="wrapper-site">
@@ -171,18 +190,18 @@
                 </div>
             </div>
         </div>
-        <div class="container" id="bookingNow">
-            <h1 class="text-center">Start Your Booking</h1>
-            <div class="row">
-                @foreach (var lapangan in Model)
-                {
-                    <div class="col-md-4 mb-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <img src="~/lapangan/@lapangan.Photo" alt="lapangan" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">@lapangan.NamaLapangan</h3>
+        <h1 class="text-center mt-5" id="bookingNow">Start Your Booking</h1>
+        <div class="container">
+            @foreach (var lapangan in Model)
+            {
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <img src="~/lapangan/@lapangan.Photo" alt="rover" />
+                        </div>
+                        <div class="card-body">
+                            <div class="namerate">
+                                <h3>@lapangan.NamaLapangan</h3>
                                 <div class="ratings">
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
@@ -190,15 +209,21 @@
                                     <i class="fa-solid fa-star"></i>
                                     <i class="fa-solid fa-star"></i>
                                 </div>
-                                <p class="card-text">Harga Sewa Per Jam: Rp. @lapangan.HargaSewaPerJam</p>
-                                <a href="/booking/create/@lapangan.IdLapangan" class="btn btn-primary">Book Now</a>
                             </div>
+                            <div class="details">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>Kawali - Ciamis</span>
+                            </div>
+                            <div class="details">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>085321840790</span>
+                            </div>
+                            <a href="/booking/create/@lapangan.IdLapangan" class="book">Book Now</a>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
-
     </div>
 </body>
 </html>

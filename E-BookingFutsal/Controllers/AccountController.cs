@@ -7,9 +7,11 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using E_BookingFutsal.Models;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace E_BookingFutsal.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly AppDbContext _context;

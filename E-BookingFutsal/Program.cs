@@ -14,6 +14,12 @@ builder.Services.AddSession();
 builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie();
+
+/*builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+{
+    o.LoginPath = "/Account/Login";
+});*/
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

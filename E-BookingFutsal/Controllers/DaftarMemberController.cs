@@ -1,10 +1,12 @@
 ﻿using E_BookingFutsal.Data;
 using E_BookingFutsal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace E_BookingFutsal.Controllers
 {
+    [Authorize]
     public class DaftarMemberController : Controller
     {
         private readonly AppDbContext _context;
@@ -17,6 +19,12 @@ namespace E_BookingFutsal.Controllers
         }
      
         public IActionResult ListMember()
+        {
+            List<DaftarMember> members = _context.DaftarMembers.ToList();
+            return View(members);
+        }
+
+        public IActionResult ListMembers()
         {
             List<DaftarMember> members = _context.DaftarMembers.ToList();
             return View(members);
