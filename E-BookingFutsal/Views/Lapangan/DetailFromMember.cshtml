@@ -48,14 +48,22 @@
                 <div class="col-sm-8">
                     @if (!string.IsNullOrEmpty(Model.Photo))
                     {
-                        <img src="~/lapangan/@Model.Photo" class="img-fluid" alt="Lapangan Photo" width="300px" height="300px" />
-                        <br />
-
-                        <a href="~/lapangan/@Model.IdLapangan" download>Download Photo</a>
+                        <div class="mb-3 row">
+                            <div class="col-sm-8">
+                                <img src="~/lapangan/@Model.Photo" class="img-fluid" alt="Lapangan Photo" width="300px" height="300px" />
+                                <br />
+                                <a href="@Url.Action("DownloadFoto", "Lapangan", new { id = Model.IdLapangan })" download style="color:orangered">Download Photo</a>
+                            </div>
+                        </div>
                     }
                     else
                     {
-                        <span>No Photo Available</span>
+                        <div class="mb-3 row">
+                            <label class="col-sm-4 col-form-label font-weight-bold fs-5">Foto Member</label>
+                            <div class="col-sm-8">
+                                <span>No Photo Available</span>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>

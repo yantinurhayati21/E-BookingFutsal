@@ -5,10 +5,22 @@
     Layout = "_LayoutMember";
 }
 <partial name="_Notification" />
+
+<style>
+    .transparent-background {
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 20px;
+        border-radius: 10px;
+    }
+</style>
+<video autoplay muted loop id="video-bg">
+    <source src="~/img/video-futsal.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 <div class="container">
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <div class="card">
+            <div class="card transparent-background">
                 <div class="card-header bg-primary text-white text-center">
                     <h3 class="mb-0">Welcome to Futsal Club!</h3>
                 </div>
@@ -26,7 +38,7 @@
                     <hr>
                     <p class="text-center">Thank you for choosing to be a member of our club. We look forward to seeing you on the field!</p>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-md-6 mt-2 mt-md-0">
                         <a asp-controller="Booking" asp-action="ListBooking" class="btn btn-outline-secondary form-control">

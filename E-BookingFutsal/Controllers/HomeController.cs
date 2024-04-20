@@ -7,7 +7,6 @@ using System.Diagnostics;
 
 namespace E_BookingFutsal.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -15,11 +15,6 @@ builder.Services.AddAuthentication(
     CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie();
 
-/*builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
-{
-    o.LoginPath = "/Account/Login";
-});*/
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -37,10 +32,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseSession();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

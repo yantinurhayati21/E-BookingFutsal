@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_BookingFutsal.Controllers
 {
-    [Authorize]
     public class BookingController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,6 +18,8 @@ namespace E_BookingFutsal.Controllers
             _context = context;
             _env = e;
         }
+
+        [Authorize]
         public IActionResult Index()
         {
             var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).ToList();
@@ -26,6 +27,12 @@ namespace E_BookingFutsal.Controllers
         }
 
         public IActionResult ListBooking()
+        {
+            var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).ToList();
+            return View(bookings);
+        }
+
+        public IActionResult Jadwal()
         {
             var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).ToList();
             return View(bookings);
@@ -44,34 +51,23 @@ namespace E_BookingFutsal.Controllers
         {
             try
             {
-                // Cari lapangan berdasarkan idLapangan yang dipilih
                 var cekLapangan = await _context.Lapang.FirstOrDefaultAsync(l => l.IdLapangan == idLapangan);
 
-                // Cek apakah ada booking yang bertabrakan dengan waktu yang sama pada lapangan yang sama
                 var cekData = await _context.Bookings.FirstOrDefaultAsync(b => b.WaktuBooking == data.WaktuBooking && b.TglBooking == data.TglBooking && b.Lapangan.NamaLapangan == cekLapangan.NamaLapangan);
 
-                if (cekData != null)
-                {
-                    TempData["ErrorMessage"] = "Status booking anda ditolak, mohon ubah waktu booking atau lapangan yang anda pilih.";
-                }
-                // Tentukan status booking
                 var statusBooking = cekData != null ? _context.Statuses.FirstOrDefault(s => s.IdStatus == 2) : _context.Statuses.FirstOrDefault(s => s.IdStatus == 1);
 
-                // Hitung total harga berdasarkan harga lapangan dan durasi
                 var hargaSewa = cekLapangan.HargaSewaPerJam;
 
-                // Periksa jika waktu booking antara jam 19.00-00.00, tambahkan 10000 ke harga sewa per jam
                 if (data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
                 {
                     hargaSewa += 10000;
                 }
 
-                // Periksa jika waktu booking antara jam 19.00-00.00 pada hari Sabtu atau Minggu, tambahkan 20000 ke harga sewa per jam
                 if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
                 {
                     hargaSewa += 20000;
                 }
-                // Periksa jika waktu booking antara jam 8.00-18.00 pada hari Sabtu atau Minggu, tambahkan 15000 ke harga sewa per jam
                 else if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 8 && data.WaktuBooking.Hour < 18)
                 {
                     hargaSewa += 15000;
@@ -79,17 +75,13 @@ namespace E_BookingFutsal.Controllers
 
                 var totalHarga = hargaSewa * data.Durasi;
 
-                // Cari member berdasarkan nama member yang diinputkan
                 var member = await _context.DaftarMembers.FirstOrDefaultAsync(m => m.NamaMember == Nama);
 
-                // Tentukan status member dan potongan harga
-                var statusMemberId = member != null ? 1 : 2; // Jika member ditemukan, status menjadi 1 (member), jika tidak, status menjadi 2 (non-member)
-                var potongan = statusMemberId == 1 ? 0.1 : 0; // Jika member, berikan potongan 10%, jika bukan member, potongan 0%
+                var statusMemberId = member != null ? 1 : 2; 
+                var potongan = statusMemberId == 1 ? 0.1 : 0;
 
-                // Hitung total harga setelah potongan
                 var totalHargaSetelahPotongan = totalHarga - (totalHarga * potongan);
 
-                // Buat objek Booking baru dengan nilai yang sudah dihitung
                 var newBooking = new Booking
                 {
                     Nama = data.Nama,
@@ -101,22 +93,29 @@ namespace E_BookingFutsal.Controllers
                     WaktuBooking = data.WaktuBooking,
                     Durasi = data.Durasi,
                     Status = statusBooking,
-                    TotalHarga = (int)totalHargaSetelahPotongan // Menggunakan total harga setelah potongan
+                    TotalHarga = (int)totalHargaSetelahPotongan
                 };
 
-                // Tambahkan booking baru ke dalam database
                 _context.Bookings.Add(newBooking);
                 await _context.SaveChangesAsync();
+                if (cekData != null)
+                {
+                    TempData["Error"] = "Status booking anda ditolak, silahkan booking ulang dan ubah waktu booking atau lapangan yang anda pilih.";
+                }
+                else
+                {
+                    TempData["Success"] = "Booking lapangan berhasil.";
 
-                // Redirect ke halaman yang sesuai (misalnya, halaman utama)
+                }
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                // Tangani kesalahan
                 return RedirectToAction("Error", "Home");
             }
         }
+
+        [Authorize]
 
         public IActionResult Detail(int id)
         {
@@ -137,6 +136,8 @@ namespace E_BookingFutsal.Controllers
             }
             return View(bookings);
         }
+
+        [Authorize]
 
         public IActionResult Update(int id)
         {
@@ -174,6 +175,7 @@ namespace E_BookingFutsal.Controllers
             return RedirectToAction("Index", "Booking");
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var booking = _context.Bookings.FirstOrDefault(x => x.IdBooking == id);

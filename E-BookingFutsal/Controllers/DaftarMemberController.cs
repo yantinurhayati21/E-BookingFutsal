@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace E_BookingFutsal.Controllers
 {
-    [Authorize]
     public class DaftarMemberController : Controller
     {
         private readonly AppDbContext _context;
@@ -17,7 +16,7 @@ namespace E_BookingFutsal.Controllers
             _context = context;
             _env = e;
         }
-     
+        [Authorize]
         public IActionResult ListMember()
         {
             List<DaftarMember> members = _context.DaftarMembers.ToList();
@@ -29,12 +28,12 @@ namespace E_BookingFutsal.Controllers
             List<DaftarMember> members = _context.DaftarMembers.ToList();
             return View(members);
         }
-
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -97,9 +96,10 @@ namespace E_BookingFutsal.Controllers
             await _context.SaveChangesAsync();
             TempData["Success"] = "Successful registration. Please login.";
 
-            return RedirectToAction("Index","DaftarMember");
+            return RedirectToAction("ListMember","DaftarMember");
         }
 
+        [Authorize]
         public IActionResult Detail(int id)
         {
             var members = _context.DaftarMembers.FirstOrDefault(u => u.IdMember == id);
@@ -110,6 +110,7 @@ namespace E_BookingFutsal.Controllers
             return View(members);
         }
 
+        [Authorize]
         public IActionResult Update(int id)
         {
             var members = _context.DaftarMembers.FirstOrDefault(x => x.IdMember == id);
@@ -140,6 +141,7 @@ namespace E_BookingFutsal.Controllers
             return RedirectToAction("ListMember","DaftarMember");
         }
 
+        [Authorize]
         public IActionResult Delete(int id)
         {
             var members = _context.DaftarMembers.FirstOrDefault(u => u.IdMember == id);

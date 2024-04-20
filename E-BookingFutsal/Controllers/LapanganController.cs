@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace E_BookingFutsal.Controllers
 {
-    [Authorize]
     public class LapanganController : Controller
     {
         private readonly AppDbContext _context;
@@ -22,6 +21,7 @@ namespace E_BookingFutsal.Controllers
             _env = e;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             List<Lapangan> lapangan = _context.Lapang.ToList();
@@ -34,6 +34,7 @@ namespace E_BookingFutsal.Controllers
             return View(lapangan);
         }
 
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -89,6 +90,7 @@ namespace E_BookingFutsal.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public IActionResult Detail(int id)
         {
             var lapangan = _context.Lapang.FirstOrDefault(u => u.IdLapangan == id);
@@ -109,6 +111,7 @@ namespace E_BookingFutsal.Controllers
             return View(lapangan);
         }
 
+        [Authorize]
         public IActionResult Update(int id)
         {
             var lapangan = _context.Lapang.FirstOrDefault(x => x.IdLapangan == id);

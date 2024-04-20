@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace E_BookingFutsal.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         private readonly AppDbContext _context;
@@ -41,7 +40,7 @@ namespace E_BookingFutsal.Controllers
         {
             if (!IsRoleValid(data.Roles, data.Username, data.Password))
             {
-                TempData["ErrorMessage"] = "The selected role is incorrect for this user";
+                TempData["error"] = "The selected role is incorrect for this user";
                 return RedirectToAction(nameof(Login));
             }
 
@@ -50,7 +49,7 @@ namespace E_BookingFutsal.Controllers
 
             if (admin == null && member == null)
             {
-                TempData["ErrorMessage"] = "Invalid username or password";
+                TempData["error"] = "Invalid username or password";
                 return RedirectToAction(nameof(Login));
             }
 
