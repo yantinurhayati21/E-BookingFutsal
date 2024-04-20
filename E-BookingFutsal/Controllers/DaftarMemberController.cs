@@ -144,32 +144,11 @@ namespace E_BookingFutsal.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            var members = _context.DaftarMembers.FirstOrDefault(u => u.IdMember == id);
-
-            if (members == null)
-            {
-                return NotFound();
-            }
-            return View(members);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var members = await _context.DaftarMembers.FindAsync(id);
-
-            if (members == null)
-            {
-                return NotFound();
-            }
-
+            var members = _context.DaftarMembers.FirstOrDefault(x => x.IdMember == id);
             _context.DaftarMembers.Remove(members);
-            await _context.SaveChangesAsync();
-            TempData["success"] = "user deleted successfully";
-            return RedirectToAction("index");
+            _context.SaveChanges();
+            return RedirectToAction("listmember", "daftarmember");
         }
-
 
         public async Task<IActionResult> DownloadFoto(int id)
         {

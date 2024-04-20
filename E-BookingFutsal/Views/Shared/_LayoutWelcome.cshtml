@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-Booking Futsal Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700" rel="stylesheet">
+    <!-- libs CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/home/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/home/css/reponsive.css">
+
+    <style>
+        /* CSS untuk ID */
+        #tiva-slideshow {
+            margin-top: 110px;
+        }
+
+        #search_widget {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        #block_myaccount_infos {
+            margin-left: auto; /* Pindahkan ke sebelah kanan */
+        }
+
+            #block_myaccount_infos .myaccount-title {
+                display: none;
+            }
+
+        #acount {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            z-index: 1000;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            #acount .account-list-content {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                #acount .account-list-content div {
+                    margin-bottom: 10px;
+                }
+
+                #acount .account-list-content a {
+                    display: flex;
+                    align-items: center;
+                    color: #333;
+                    text-decoration: none;
+                    transition: color 0.3s ease;
+                }
+
+                    #acount .account-list-content a:hover {
+                        color: #111;
+                    }
+
+                    #acount .account-list-content a i {
+                        margin-right: 5px;
+                    }
+
+        #video-bg {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Letakkan di bawah konten lainnya */
+            background-size: cover;
+            transition: opacity 1s ease-in-out;
+        }
+
+            /* Jika Anda ingin menambahkan overlay warna */
+            #video-bg::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5); /* Warna overlay */
+                z-index: -1;
+            }
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: #f8f9fa;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-brand {
+            margin-right: 650px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            margin-right: 15px;
+            font-size: 15px;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #111;
+            }
+
+            .navbar-nav .nav-link.active {
+                color: #111;
+            }
+
+            .navbar-nav .nav-link::after {
+                content: '';
+                display: block;
+                width: 0;
+                height: 2px;
+                background: #111;
+                transition: width 0.3s ease;
+            }
+
+            .navbar-nav .nav-link:hover::after, .navbar-nav .nav-link.active::after {
+                width: 100%;
+            }
+
+            .navbar-nav .nav-link:not(:hover)::after {
+                width: 0;
+            }
+
+        .nav-link {
+            margin-right: 5px;
+        }
+
+        /* Welcome Menu Styles */
+        .welcome-menu {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+            .welcome-menu h1 {
+                font-weight: bold;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            .welcome-menu h4 {
+                margin-bottom: 20px;
+                color: #666;
+            }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            margin: 0.25rem 0;
+        }
+
+        .navbar {
+            padding: 15px 0;
+        }
+
+        .contact {
+            padding: 50px 0;
+        }
+
+        .contact-about h3,
+        .contact-contact h3 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contact-about p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .log {
+            margin-bottom: 15px;
+        }
+
+            .log p {
+                margin-bottom: 0;
+                color: #666;
+            }
+
+        .icons a {
+            margin-right: 10px;
+            color: #333;
+        }
+
+        /* Footer Styles */
+        footer {
+            padding: 20px 0;
+            background-color: #f8f9fa;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Back to Top Button Styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+            .back-to-top a {
+                color: #333;
+                font-size: 24px;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .back-to-top a:hover {
+                    color: #111;
+                }
+
+                .back-to-top a i {
+                    animation: arrow-fade 1.5s ease infinite;
+                }
+
+        /* Animasi hover pada gambar */
+        .effect {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+            .effect:hover img {
+                transform: scale(1.1);
+            }
+
+            .effect::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                z-index: 2;
+            }
+
+            .effect:hover::before {
+                opacity: 1;
+            }
+
+            .effect a {
+                display: block;
+                position: relative;
+                z-index: 3;
+            }
+
+                .effect a:hover {
+                    text-decoration: none;
+                }
+
+        .nav-item dropdown {
+            margin-right: 5px;
+        }
+    </style>
+
+</head>
+<body id="home3">
+    <header>
+        <!-- Navigation Menu -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color:#1e1e2a;">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="~/img/logo-futsal.png" alt="Logo" style="height: 60px; margin-right: 10px;">
+                    <h3 style="font-weight:bold; margin-bottom: 0;">E-BookingFutsal</h3>
+                </a>
+                <!-- Toggle Button for Mobile -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navigation Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="DaftarMember" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Booking" asp-action="ListBooking">Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="DaftarMember" asp-action="ListMembers">Members</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Lapangan" asp-action="ListLapangan">Lapangan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">LogOut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- main content -->
+    @RenderBody()
+    <!-- Vendor JS -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Template JS -->
+    <script src="~/home/js/theme.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

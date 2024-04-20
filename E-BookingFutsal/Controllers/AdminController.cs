@@ -110,33 +110,13 @@ namespace E_BookingFutsal.Controllers
             }
             return RedirectToAction("ListAdmin", "Admin");
         }
-
+       
         public IActionResult Delete(int id)
         {
-            var admins = _context.Admins.Include(x => x.Roles).ToList().FirstOrDefault(x => x.Id == id);
-
-            if (admins == null)
-            {
-                return NotFound();
-            }
-            return View(admins);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var admins = await _context.Admins.FindAsync(id);
-
-            if (admins == null)
-            {
-                return NotFound();
-            }
-
+            var admins= _context.Admins.FirstOrDefault(x => x.Id == id);
             _context.Admins.Remove(admins);
-            await _context.SaveChangesAsync();
-            TempData["success"] = "admin deleted successfully";
-            return RedirectToAction("ListAdmin");
+            _context.SaveChanges();
+            return RedirectToAction("Index", "admin");
         }
     }
 }

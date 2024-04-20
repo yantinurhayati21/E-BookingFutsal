@@ -115,10 +115,13 @@ namespace E_BookingFutsal.Controllers
         public IActionResult Update(int id)
         {
             var lapangan = _context.Lapang.FirstOrDefault(x => x.IdLapangan == id);
+            if(lapangan == null)
+            {
+                return NotFound();
+            }
             return View(lapangan);
         }
 
-        // Method Update dalam LapanganController
         [HttpPost]
         public async Task<IActionResult> Update([FromForm] Lapangan data)
         {
@@ -129,7 +132,6 @@ namespace E_BookingFutsal.Controllers
                 dataFromDb.NamaLapangan = data.NamaLapangan;
                 dataFromDb.HargaSewaPerJam = data.HargaSewaPerJam;
 
-                // Konfirmasi perubahan ke dalam konteks basis data
                 _context.Lapang.Update(dataFromDb);
                 await _context.SaveChangesAsync();
                 TempData["success"] = "Lapangan berhasil diperbarui.";

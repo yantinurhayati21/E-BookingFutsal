@@ -14,6 +14,7 @@ namespace E_BookingFutsal.Models
         public Member StatusMember { get; set; }
 
         [Required(ErrorMessage = "Nomor telepon wajib diisi")]
+
         [Phone(ErrorMessage = "Nomor telepon tidak valid")]
         [StringLength(13, MinimumLength = 11, ErrorMessage = "NO Handphone Min 11 Angka")]
         public string NoHp { get; set; }

@@ -183,5 +183,12 @@ namespace E_BookingFutsal.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "booking");
         }
+
+        public IActionResult LapanganView()
+        {
+            List<Lapangan> lapang = _context.Lapang.ToList();
+            return View(lapang);
+        }
+        
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create - Booking";
+    Layout = "_NoLayout";
 }
 <partial name="_Notification" />
 
@@ -143,7 +144,7 @@
                     </div>
                     <div class="form-field">
                         <label>Nama Pemesan</label>
-                        <input type="text" name="Nama" class="form-control" placeholder="Your Name">
+                        <input type="text" name="Nama" class="form-control" placeholder="Your Name" required>
                     </div>
                     <div class="form-field">
                         <label>No Handphone</label>
@@ -151,19 +152,19 @@
                     </div>
                     <div class="form-field">
                         <label>Email</label>
-                        <input type="text" name="Email" class="form-control" placeholder="Your Email">
+                        <input type="text" name="Email" class="form-control" placeholder="Your Email" required>
                     </div>
                     <div class="form-field">
                         <label>Tanggal</label>
-                        <input type="date" name="TglBooking" class="form-control" placeholder="Tanggal Booking">
+                        <input type="date" name="TglBooking" class="form-control" placeholder="Tanggal Booking" required>
                     </div>
                     <div class="form-field">
                         <label>Waktu Booking</label>
-                        <input type="time" name="WaktuBooking" class="form-control" placeholder="Jam booking Start">
+                        <input type="time" name="WaktuBooking" class="form-control" placeholder="Jam booking Start" required>
                     </div>
                     <div class="form-field">
                         <label>Durasi</label>
-                        <input type="number" name="Durasi" class="form-control" placeholder="Durasi Booking">
+                        <input type="number" name="Durasi" class="form-control" placeholder="Durasi Booking" required>
                     </div>
                     @if (TempData["ErrorMessage"] != null)
                     {
