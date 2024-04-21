@@ -84,6 +84,11 @@ namespace E_BookingFutsal.Controllers
                     var potongan = statusMemberId == 1 ? 0.1 : 0;
 
                     totalHargaSetelahPotongan = totalHarga - (int)(totalHarga * potongan);
+                    var totalIncome = await _context.Bookings
+                    .Where(b => b.Status.IdStatus != 2) 
+                    .SumAsync(b => b.TotalHarga); 
+                    
+                    ViewBag.TotalIncome = totalIncome;
                 }
 
                 if (statusBooking.IdStatus == 2)

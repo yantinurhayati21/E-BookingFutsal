@@ -19,7 +19,7 @@ namespace E_BookingFutsal.Controllers
         }
 
         public IActionResult Index()
-        {
+        {          
             List<Lapangan> lapang = _context.Lapang.ToList();
             return View(lapang);
         }

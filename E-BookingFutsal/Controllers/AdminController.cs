@@ -25,8 +25,20 @@ namespace E_BookingFutsal.Controllers
             List<Admin> admins = _context.Admins.ToList();
             return View(admins);
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var totalIncome = _context.Bookings.Sum(b => b.TotalHarga);
+            
+            int jumlahLapangan = await _context.Lapang.CountAsync();
+
+            int jumlahMember = await _context.DaftarMembers.CountAsync();
+
+            int jumlahBooking = await _context.Bookings.CountAsync();
+
+            ViewBag.TotalIncome = totalIncome;
+            ViewBag.JumlahLapangan = jumlahLapangan;
+            ViewBag.JumlahMember = jumlahMember;
+            ViewBag.JumlahBooking = jumlahBooking;
             return View();
         }
 

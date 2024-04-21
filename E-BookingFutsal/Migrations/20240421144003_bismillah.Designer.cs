@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_BookingFutsal.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240420130627_bismillah")]
+    [Migration("20240421144003_bismillah")]
     partial class bismillah
     {
         /// <inheritdoc />

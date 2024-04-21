@@ -19,7 +19,7 @@
             <h2>dashboard</h2>
         </div>
         <div class="user--info">
-            <img src="~/image/img.jpeg" alt="">
+            <img src="~/img/image.jpeg" alt="">
         </div>
     </div>
     <div class="card--container">
@@ -29,7 +29,7 @@
                 <div class="card--header">
                     <div class="income">
                         <span class="title">
-                            Monthly Income
+                            Income
                         </span>
                         <span class="income--value">Rp @ViewBag.TotalIncome</span>
                     </div>
@@ -41,11 +41,11 @@
                 <div class="card--header">
                     <div class="income">
                         <span class="title">
-                            Monthly Expenditure
+                            Booking
                         </span>
-                        <span class="income--value">Rp 150.000</span>
+                        <span class="income--value">@ViewBag.JumlahBooking pieces</span>
                     </div>
-                    <i class="fas fa-list icon dark-purple"></i>
+                    <i class="fas fa-book icon dark-purple"></i>
                 </div>
                 <span class="card-detail">**** **** **** 5542</span>
             </div>
@@ -53,11 +53,11 @@
                 <div class="card--header">
                     <div class="income">
                         <span class="title">
-                            Progress Project
+                            Members
                         </span>
-                        <span class="income--value">95% </span>
+                        <span class="income--value">@ViewBag.JumlahMember people</span>
                     </div>
-                    <i class="fa solid fa-check icon dark-green"></i>
+                    <i class="fas fa-user icon dark-green"></i>
                 </div>
                 <span class="card-detail">**** **** **** 1601</span>
             </div>
@@ -65,11 +65,11 @@
                 <div class="card--header">
                     <div class="income">
                         <span class="title">
-                            Pending Requests
+                            Futsal field
                         </span>
-                        <span class="income--value">2</span>
+                        <span class="income--value">@ViewBag.JumlahLapangan pieces</span>
                     </div>
-                    <i class="fas fa-comments icon dark-blue"></i>
+                    <i class="fas fa-futbol icon dark-blue"></i>
                 </div>
                 <span class="card-detail">**** **** **** 2111</span>
             </div>
