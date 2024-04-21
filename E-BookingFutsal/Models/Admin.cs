@@ -9,7 +9,6 @@ namespace E_BookingFutsal.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-
         [Required(ErrorMessage = "Nama wajib diisi")]
         public string Nama { get; set; }
 

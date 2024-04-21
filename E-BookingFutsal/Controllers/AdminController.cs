@@ -30,27 +30,26 @@ namespace E_BookingFutsal.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Roles = _context.Roles.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            });
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] AdminForm data)
+        public async Task<IActionResult> Create(Admin data)
         {
-            var AddRoles = _context.Roles.FirstOrDefault(x => x.Id == data.Role);
-
-            if (_context.DaftarMembers.Any(u => u.Username == data.Username))
+            if (_context.Admins.Any(u => u.Username == data.Username))
             {
                 ModelState.AddModelError("Username", "Username is already taken");
                 return View(data);
             }
 
+            var adminRole = _context.Roles.FirstOrDefault(r => r.Name == "Admin");
+
+            if (adminRole == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
             var newAdmin = new Admin
             {
                 Nama = data.Nama,
@@ -59,15 +58,16 @@ namespace E_BookingFutsal.Controllers
                 Password = data.Password,
                 Alamat = data.Alamat,
                 NoHp = data.NoHp,
-                Roles = AddRoles
+                Roles = adminRole
             };
             _context.Admins.Add(newAdmin);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Successful registration. Please login.";
+            TempData["Success"] = "Successful registration. Please login.";
 
             return RedirectToAction("ListAdmin", "Admin");
         }
+    
 
         public IActionResult Detail(int id)
         {
@@ -116,7 +116,7 @@ namespace E_BookingFutsal.Controllers
             var admins= _context.Admins.FirstOrDefault(x => x.Id == id);
             _context.Admins.Remove(admins);
             _context.SaveChanges();
-            return RedirectToAction("Index", "admin");
+            return RedirectToAction("ListAdmin", "admin");
         }
     }
 }

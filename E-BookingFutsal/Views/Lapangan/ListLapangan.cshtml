@@ -43,14 +43,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var student in Model)
+                                    @foreach (var lapangan in Model)
                                     {
                                         <tr>
-                                            <td>@student.NamaLapangan</td>
-                                            <td>@student.HargaSewaPerJam</td>
-                                            <td>@student.Photo</td>
+                                            <td>@lapangan.NamaLapangan</td>
+                                            <td>@lapangan.HargaSewaPerJam</td>
+                                            <td><img src="~/lapangan/@lapangan.Photo" class="img-fluid" alt="Lapangan Photo" width="40px" height="40px" style="border-radius=50%;object-fit: cover" /></td>
                                             <td>
-                                                <a href="/Lapangan/DetailFromMember/@student.IdLapangan" class="btn btn-primary"><i class="fa fa-bookmark" aria-hidden="true"></i> Detail</a>
+                                                <a href="/Lapangan/DetailFromMember/@lapangan.IdLapangan" class="btn btn-primary"><i class="fa fa-bookmark" aria-hidden="true"></i> Detail</a>
                                             </td>
                                         </tr>
                                     }

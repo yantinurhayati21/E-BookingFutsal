@@ -145,8 +145,7 @@ namespace E_BookingFutsal.Controllers
                     {
                         Directory.CreateDirectory(fileFolder);
                     }
-
-                    var fileName = Guid.NewGuid().ToString() + "_" + foto.FileName;
+                    var fileName = "photo_" + data.NamaMember + Path.GetExtension(foto.FileName);
                     var filePath = Path.Combine(fileFolder, fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
@@ -201,7 +200,6 @@ namespace E_BookingFutsal.Controllers
 
             return RedirectToAction("Login", "Account");
         }
-
     }
 }
 

@@ -1,5 +1,4 @@
-﻿@model E_BookingFutsal.Models.ViewModel.AdminForm
-
+﻿@model E_BookingFutsal.Models.Admin
 @{
     ViewData["Title"] = "Create - Admin";
     Layout = "_LayoutAdmin";
@@ -36,7 +35,7 @@
             <div class="mb-3 row">
                 <label asp-for="Password" class="col-sm-4 col-form-label font-weight-bold fs-5">Password</label>
                 <div class="col-sm-8">
-                    <input asp-for="Password" type="text" class="form-control fs-5" placeholder="Input Password" />
+                    <input asp-for="Password" type="password" class="form-control fs-5" placeholder="Input Password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
@@ -61,15 +60,6 @@
                     <span asp-validation-for="Alamat" class="text-danger"></span>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <label asp-for="Role" class="col-sm-4 col-form-label font-weight-bold fs-5">Role</label>
-                <div class="col-sm-8">
-                    <select asp-for="Role" asp-items="@ViewBag.Roles" class="form-control">
-                        <option>Select Role</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-primary form-control">Create</button>

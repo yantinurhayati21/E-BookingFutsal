@@ -38,7 +38,6 @@ namespace E_BookingFutsal.Controllers
             return View(bookings);
         }
 
-
         public IActionResult Create(int id)
         {
             var getIdLapangan = _context.Lapang.Where(l => l.IdLapangan == id).FirstOrDefault();
@@ -57,35 +56,45 @@ namespace E_BookingFutsal.Controllers
 
                 var statusBooking = cekData != null ? _context.Statuses.FirstOrDefault(s => s.IdStatus == 2) : _context.Statuses.FirstOrDefault(s => s.IdStatus == 1);
 
-                var hargaSewa = cekLapangan.HargaSewaPerJam;
+                var totalHargaSetelahPotongan = 0;
 
-                if (data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
+                if (statusBooking.IdStatus != 2)
                 {
-                    hargaSewa += 10000;
+                    var hargaSewa = cekLapangan.HargaSewaPerJam;
+
+                    if (data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
+                    {
+                        hargaSewa += 10000;
+                    }
+
+                    if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
+                    {
+                        hargaSewa += 20000;
+                    }
+                    else if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 8 && data.WaktuBooking.Hour < 18)
+                    {
+                        hargaSewa += 15000;
+                    }
+
+                    var totalHarga = hargaSewa * data.Durasi;
+
+                    var member = await _context.DaftarMembers.FirstOrDefaultAsync(m => m.NamaMember == Nama);
+
+                    var statusMemberId = member != null ? 1 : 2;
+                    var potongan = statusMemberId == 1 ? 0.1 : 0;
+
+                    totalHargaSetelahPotongan = totalHarga - (int)(totalHarga * potongan);
                 }
 
-                if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 19 && data.WaktuBooking.Hour < 24)
+                if (statusBooking.IdStatus == 2)
                 {
-                    hargaSewa += 20000;
+                    totalHargaSetelahPotongan = 0;
                 }
-                else if ((data.WaktuBooking.DayOfWeek == DayOfWeek.Saturday || data.WaktuBooking.DayOfWeek == DayOfWeek.Sunday) && data.WaktuBooking.Hour >= 8 && data.WaktuBooking.Hour < 18)
-                {
-                    hargaSewa += 15000;
-                }
-
-                var totalHarga = hargaSewa * data.Durasi;
-
-                var member = await _context.DaftarMembers.FirstOrDefaultAsync(m => m.NamaMember == Nama);
-
-                var statusMemberId = member != null ? 1 : 2; 
-                var potongan = statusMemberId == 1 ? 0.1 : 0;
-
-                var totalHargaSetelahPotongan = totalHarga - (totalHarga * potongan);
 
                 var newBooking = new Booking
                 {
                     Nama = data.Nama,
-                    StatusMember = _context.Members.FirstOrDefault(s => s.Id == statusMemberId),
+                    StatusMember = _context.Members.FirstOrDefault(s => s.Id == (statusBooking.IdStatus == 1 ? 1 : 2)),
                     NoHp = data.NoHp,
                     Email = data.Email,
                     Lapangan = cekLapangan,
@@ -93,11 +102,12 @@ namespace E_BookingFutsal.Controllers
                     WaktuBooking = data.WaktuBooking,
                     Durasi = data.Durasi,
                     Status = statusBooking,
-                    TotalHarga = (int)totalHargaSetelahPotongan
+                    TotalHarga = totalHargaSetelahPotongan
                 };
 
                 _context.Bookings.Add(newBooking);
                 await _context.SaveChangesAsync();
+
                 if (cekData != null)
                 {
                     TempData["Error"] = "Status booking anda ditolak, silahkan booking ulang dan ubah waktu booking atau lapangan yang anda pilih.";
@@ -105,8 +115,8 @@ namespace E_BookingFutsal.Controllers
                 else
                 {
                     TempData["Success"] = "Booking lapangan berhasil.";
-
                 }
+
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
@@ -115,8 +125,8 @@ namespace E_BookingFutsal.Controllers
             }
         }
 
-        [Authorize]
 
+        [Authorize]
         public IActionResult Detail(int id)
         {
             var bookings = _context.Bookings.Include(b => b.Lapangan).Include(b => b.Status).Include(b => b.StatusMember).ToList().FirstOrDefault(b => b.IdBooking==id);
@@ -138,7 +148,6 @@ namespace E_BookingFutsal.Controllers
         }
 
         [Authorize]
-
         public IActionResult Update(int id)
         {
             ViewBag.Members = _context.Members.Select(x => new SelectListItem
@@ -184,6 +193,7 @@ namespace E_BookingFutsal.Controllers
             return RedirectToAction("Index", "booking");
         }
 
+        [Authorize]
         public IActionResult LapanganView()
         {
             List<Lapangan> lapang = _context.Lapang.ToList();
